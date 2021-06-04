@@ -1,7 +1,6 @@
 package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
-<<<<<<< Updated upstream
 import bibliotecagrupo5.modelo.Ejemplar;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,27 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-=======
 import java.sql.Connection;
 
->>>>>>> Stashed changes
 
 /* @author @LXWeber Leandro Xavier Weber */
 
 public class EjemplarData {
-<<<<<<< Updated upstream
     
-    private Connection conexion = null;
-=======
-    private Connection con;
+    private Connection conexion;
     
     public EjemplarData(){
-        con = Conexion.getConexion();
-    }
->>>>>>> Stashed changes
-
-    public EjemplarData(Conexion conexion) {
-        this.conexion = conexion.getConexion();
+        conexion = Conexion.getConexion();
     }
     
     public void ingresarEjemplar(Ejemplar ejemplar){
