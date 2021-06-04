@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
 /* @author @LXWeber Leandro Xavier Weber */
 public class PrestamoData {
 
-    private Connection con;
+    public Connection con;
 
     public PrestamoData() {
         con = Conexion.getConexion();
@@ -195,18 +196,17 @@ public class PrestamoData {
         }
     }
 
-//    public void actualizarMultas(){
-//        MultaData md = new MultaData();
-//        md.setConnection(con);
-//        List<Prestamo> lista = listarSinRetrasos();
-//        lista.forEach(p ->{
-//            Prestamo aux = (Prestamo) p;
-//            if (aux.getInicio().plusDays(30).compareTo(LocalDate.now()) > 0 ){
-//                Multa m = new Multa(LocalDate.now());
-//                md.agregarMulta(m);
-//                aux.setMulta(m);
-//                
-//            }
-//        });
-//    }
+    public void actualizarMultas(){
+        MultaData md = new MultaData();
+        List<Prestamo> lista = listarSinRetrasos();
+        lista.forEach(p ->{
+            Prestamo aux = (Prestamo) p;
+            if (aux.getFecha_inicio().plusDays(30).compareTo(LocalDate.now()) > 0 ){
+                Multa m = new Multa(LocalDate.now(),null);
+                md.agregarMulta(m);
+                aux.setMulta(m);
+                actualizar(p);
+            }
+        });
+    }
 }

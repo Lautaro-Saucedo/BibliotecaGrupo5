@@ -5,6 +5,8 @@
  */
 package bibliotecagrupo5;
 
+import bibliotecagrupo5.controlador.PrestamoData;
+
 /**
  *
  * @author Laucha
@@ -15,7 +17,8 @@ public class BibliotecaGrupo5 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        PrestamoData pd = new PrestamoData();
+        System.out.println(pd.con==null);
     }
     
 }
