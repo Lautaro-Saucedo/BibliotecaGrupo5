@@ -1,8 +1,6 @@
-
 package bibliotecagrupo5.modelo;
 
 import java.time.LocalDate;
-
 
 /* @author @LXWeber Leandro Xavier Weber */
 

@@ -1,14 +1,12 @@
-
 package bibliotecagrupo5.modelo;
 
 import java.time.LocalDate;
-
 
 /* @author @LXWeber Leandro Xavier Weber */
 
 public class Autor {
 
-    protected long dni_autor;
+    protected int dni_autor;
     protected String nombre_autor;
     protected String apellido_autor;
     protected LocalDate fecha_nacimiento;
@@ -16,7 +14,7 @@ public class Autor {
     
     public Autor(){}
 
-    public Autor(long dni_autor, String nombre_autor, String apellido_autor, LocalDate fecha_nacimiento, String nacionalidad) {
+    public Autor(int dni_autor, String nombre_autor, String apellido_autor, LocalDate fecha_nacimiento, String nacionalidad) {
         this.dni_autor = dni_autor;
         this.nombre_autor = nombre_autor;
         this.apellido_autor = apellido_autor;
@@ -24,7 +22,7 @@ public class Autor {
         this.nacionalidad = nacionalidad;
     }
 
-    public long getDni_autor() {
+    public int getDni_autor() {
         return dni_autor;
     }
 
@@ -44,7 +42,7 @@ public class Autor {
         return nacionalidad;
     }
 
-    public void setDni_autor(long dni_autor) {
+    public void setDni_autor(int dni_autor) {
         this.dni_autor = dni_autor;
     }
 

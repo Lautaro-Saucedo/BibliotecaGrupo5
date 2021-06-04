@@ -4,21 +4,21 @@ package bibliotecagrupo5.modelo;
 
 public class Lector {
     
-    protected long dni_lector;
+    protected int dni_lector;
     protected String nombre_lector;
     protected String apellido_lector;
     protected boolean estado_lector;
     
     public Lector(){}
     
-    public Lector(long dni_lector, String nombre_lector, String apellido_lector, boolean estado_lector) {
+    public Lector(int dni_lector, String nombre_lector, String apellido_lector, boolean estado_lector) {
         this.dni_lector = dni_lector;
         this.nombre_lector = nombre_lector;
         this.apellido_lector = apellido_lector;
         this.estado_lector = estado_lector;
     }
 
-    public long getDni_lector() {
+    public int getDni_lector() {
         return dni_lector;
     }
 
@@ -34,7 +34,7 @@ public class Lector {
         return estado_lector;
     }
 
-    public void setDni_lector(long dni_lector) {
+    public void setDni_lector(int dni_lector) {
         this.dni_lector = dni_lector;
     }
 
