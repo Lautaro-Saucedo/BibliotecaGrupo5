@@ -2,7 +2,6 @@ package bibliotecagrupo5.modelo;
 
 import java.time.LocalDate;
 
-
 /* @author @LXWeber Leandro Xavier Weber */
 
 public class Prestamo {
@@ -11,26 +10,26 @@ public class Prestamo {
     protected Lector lector;
     protected Multa multa;
     protected Ejemplar ejemplar;
-    protected LocalDate inicio;
-    protected boolean estado;
+    protected LocalDate fecha_inicio;
+    protected LocalDate fecha_fin;
     
     public Prestamo(){}
     
-    public Prestamo(Lector lector, Multa multa, Ejemplar ejemplar, LocalDate inicio, boolean estado) {
+    public Prestamo(Lector lector, Multa multa, Ejemplar ejemplar, LocalDate fecha_inicio, LocalDate fecha_fin) {
         this.lector = lector;
         this.multa = multa;
         this.ejemplar = ejemplar;
-        this.inicio = inicio;
-        this.estado = estado;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
     }
 
-    public Prestamo(int id_prestamo, Lector lector, Multa multa, Ejemplar ejemplar, LocalDate inicio, boolean estado) {
+    public Prestamo(int id_prestamo, Lector lector, Multa multa, Ejemplar ejemplar, LocalDate fecha_inicio, LocalDate fecha_fin) {
         this.id_prestamo = id_prestamo;
         this.lector = lector;
         this.multa = multa;
         this.ejemplar = ejemplar;
-        this.inicio = inicio;
-        this.estado = estado;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
     }
 
     public int getId_prestamo() {
@@ -49,12 +48,12 @@ public class Prestamo {
         return ejemplar;
     }
 
-    public LocalDate getInicio() {
-        return inicio;
+    public LocalDate getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public LocalDate getFecha_fin() {
+        return fecha_fin;
     }
 
     public void setId_prestamo(int id_prestamo) {
@@ -73,14 +72,12 @@ public class Prestamo {
         this.ejemplar = ejemplar;
     }
 
-    public void setInicio(LocalDate inicio) {
-        this.inicio = inicio;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setFecha_inicio(LocalDate fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
     
-    
+    public void setFecha_fin(LocalDate fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
     
 }

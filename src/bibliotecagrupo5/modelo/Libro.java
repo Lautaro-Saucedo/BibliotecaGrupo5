@@ -1,7 +1,5 @@
 package bibliotecagrupo5.modelo;
 
-import java.time.LocalDate;
-
 /* @author @LXWeber Leandro Xavier Weber */
 
 public class Libro {
@@ -10,12 +8,12 @@ public class Libro {
     protected Autor autor;
     protected String nombre;
     protected String editorial;
-    protected LocalDate año;
+    protected int año;
     protected String tipo;
     
     public Libro(){}
 
-    public Libro(int isbn, Autor autor, String nombre, String editorial, LocalDate año, String tipo) {
+    public Libro(int isbn, Autor autor, String nombre, String editorial, int año, String tipo) {
         this.isbn = isbn;
         this.autor = autor;
         this.nombre = nombre;
@@ -40,7 +38,7 @@ public class Libro {
         this.editorial = editorial;
     }
 
-    public void setAño(LocalDate año) {
+    public void setAño(int año) {
         this.año = año;
     }
 
@@ -64,14 +62,12 @@ public class Libro {
         return editorial;
     }
 
-    public LocalDate getAño() {
+    public int getAño() {
         return año;
     }
 
     public String getTipo() {
         return tipo;
     }
-    
-    
     
 }
