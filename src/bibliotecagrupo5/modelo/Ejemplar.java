@@ -3,20 +3,26 @@ package bibliotecagrupo5.modelo;
 
 /* @author @LXWeber Leandro Xavier Weber */
 
+// Unicos posibles estados de los ejemplares
+// 0 prestado
+// 1 disponible
+// 2 retraso
+// 3 reparacion
+
 public class Ejemplar {
     
     protected int id_ejemplar;
     protected Libro libro;
-    protected boolean estado;
+    protected int estado;
     
     public Ejemplar(){}
     
-    public Ejemplar(Libro libro, boolean estado) {
+    public Ejemplar(Libro libro, int estado) {
         this.libro = libro;
         this.estado = estado;
     }
 
-    public Ejemplar(int id_ejemplar, Libro libro, boolean estado) {
+    public Ejemplar(int id_ejemplar, Libro libro, int estado) {
         this.id_ejemplar = id_ejemplar;
         this.libro = libro;
         this.estado = estado;
@@ -30,7 +36,7 @@ public class Ejemplar {
         return libro;
     }
 
-    public boolean isEstado() {
+    public int getEstado() {
         return estado;
     }
 
@@ -42,7 +48,7 @@ public class Ejemplar {
         this.libro = libro;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 
