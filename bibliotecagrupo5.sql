@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2021 a las 02:06:57
+-- Tiempo de generación: 04-06-2021 a las 06:53:09
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.5
 
@@ -135,10 +135,10 @@ CREATE TABLE `multa` (
 CREATE TABLE `prestamo` (
   `id_prestamo` int(10) NOT NULL,
   `id_lector` int(10) NOT NULL,
-  `id_multa` int(10) DEFAULT NULL,
+  `id_multa` int(10) NOT NULL DEFAULT -1,
   `id_ejemplar` int(10) NOT NULL,
-  `fecha` date NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
