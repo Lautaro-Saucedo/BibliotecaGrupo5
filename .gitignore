@@ -12,6 +12,8 @@
 
 # Package Files #
 *.jar
+!mariadb-java-client-2.3.0_3.jar
+!jcalendar-1.4.jar
 *.war
 *.nar
 *.ear
