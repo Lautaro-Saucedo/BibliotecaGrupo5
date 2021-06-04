@@ -18,8 +18,8 @@ public class LibroData {
     
     private Connection conexion = null;
 
-    public LibroData(Conexion conexion) {
-        this.conexion = conexion.getConexion();
+    public LibroData() {
+        this.conexion = Conexion.getConexion();
     }
     
     public void ingresarLibro(Libro libro){

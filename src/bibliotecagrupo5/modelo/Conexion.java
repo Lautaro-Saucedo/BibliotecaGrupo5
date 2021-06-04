@@ -6,21 +6,20 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    private String url="jdbc:mysql://localhost/bibliotecagrupo5";
-    private String user="root";
-    private String pass="";
-    private Connection con=null;
+    private static String url="jdbc:mysql://localhost/bibliotecagrupo5";
+    private static String user="root";
+    private static String pass="";
+    private static Connection con=null;
     
-    public Conexion(){
+    private Conexion(){
         try {
-            
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException cnte){
             JOptionPane.showMessageDialog(null, "Clase Driver no encontrada.");
         }
     }
     
-    public Connection getConexion(){
+    public static Connection getConexion(){
         if (con==null){
             try {
                 con=DriverManager.getConnection(url,user,pass);

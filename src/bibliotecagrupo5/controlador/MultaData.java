@@ -20,8 +20,8 @@ import javax.swing.JOptionPane;
 public class MultaData {
     private Connection con;
     
-    public MultaData(Conexion conexion){
-        con = conexion.getConexion();
+    public MultaData(){
+        con = Conexion.getConexion();
     }
     
     public void agregarMulta(Multa m){

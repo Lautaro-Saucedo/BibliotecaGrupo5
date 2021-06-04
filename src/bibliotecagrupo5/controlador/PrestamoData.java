@@ -23,8 +23,8 @@ public class PrestamoData {
 
     private Connection con;
 
-    public PrestamoData(Conexion conexion) {
-        con = conexion.getConexion();
+    public PrestamoData() {
+        con = Conexion.getConexion();
     }
 
     public void agregarPrestamo(Prestamo p) {
