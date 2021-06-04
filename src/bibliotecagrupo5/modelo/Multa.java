@@ -39,11 +39,11 @@ public class Multa {
         this.id_multa = id_multa;
     }
 
-    public void setInicio(LocalDate fecha_inicio) {
+    public void setFecha_inicio(LocalDate fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
     
-    public void setFin(LocalDate fecha_fin) {
+    public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
 }
