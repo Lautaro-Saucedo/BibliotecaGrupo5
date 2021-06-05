@@ -79,5 +79,18 @@ public class Prestamo {
     public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
+
+    @Override
+    public String toString() {
+        String asd = (multa == null) ? "NO" : "SI";
+        return "----------"
+             + "\nEjemplar: "+ejemplar.getId_ejemplar()
+             + "\nLector: "+lector.getNombre_lector() + " " + lector.getApellido_lector()
+             + "\nFecha: "+fecha_inicio
+             + "\nDevuelto: "+fecha_fin
+             + "\nMulta: "+asd+"\n";
+    }
+    
+    
     
 }

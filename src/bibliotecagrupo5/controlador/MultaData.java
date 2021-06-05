@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 /* @author @LXWeber Leandro Xavier Weber */
 
 public class MultaData {
@@ -29,7 +28,28 @@ public class MultaData {
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, Date.valueOf(m.getFecha_inicio()));
-            ps.setDate(2, Date.valueOf(m.getFecha_fin()));
+            if (m.getFecha_fin() != null){
+                ps.setDate(2, Date.valueOf(m.getFecha_fin()));
+            } else {
+                ps.setNull(2, java.sql.Types.DATE);
+            }
+            ps.executeQuery();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            m.setId_multa(rs.getInt(1));
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MultaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    /*
+    public void agregarMulta(Multa m){
+        String query = "INSERT INTO multa VALUES (NULL,?,NULL)";
+        try {
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setDate(1, Date.valueOf(LocalDate.now()));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 m.setId_multa(rs.getInt(1));
@@ -42,6 +62,7 @@ public class MultaData {
         }
         
     }
+    */
     
     public List<Multa> ListarMultas(){
         List<Multa> lista = new ArrayList<>();
@@ -62,4 +83,19 @@ public class MultaData {
         }
         return lista;
     }
+    
+    public void actualizar(Multa m){
+        String query = "UPDATE multa SET fecha_inicio=?, fecha_fin=? WHERE id_multa=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(m.getFecha_inicio()));
+            ps.setDate(2, Date.valueOf(m.getFecha_fin()));
+            ps.setInt(3, m.getId_multa());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MultaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
