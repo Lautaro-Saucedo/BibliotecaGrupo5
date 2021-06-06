@@ -2,14 +2,12 @@ package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
 import bibliotecagrupo5.modelo.Ejemplar;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
-
 
 /* @author @LXWeber Leandro Xavier Weber */
 
@@ -22,7 +20,7 @@ public class EjemplarData {
     }
     
     public void ingresarEjemplar(Ejemplar ejemplar){
-        String query = "INSERT INTO ejemplar(id_ejemplar, libro, estado) VALUES (NULL,?,1)";
+        String query = "INSERT INTO ejemplar(id_ejemplar, id_libro, estado) VALUES (NULL,?,1)";
         try{
             PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,ejemplar.getLibro().getIsbn());
@@ -39,7 +37,7 @@ public class EjemplarData {
     }
     
     public void ingresarEjemplares(Ejemplar ejemplar, int cant){
-            String query = "INSERT INTO ejemplar(id_ejemplar, libro, estado) VALUES (NULL,?,1)";
+            String query = "INSERT INTO ejemplar(id_ejemplar, id_libro, estado) VALUES (NULL,?,1)";
         for(int i=1;i<cant;i++){
             String x = ",(NULL,?,1)";
         }
