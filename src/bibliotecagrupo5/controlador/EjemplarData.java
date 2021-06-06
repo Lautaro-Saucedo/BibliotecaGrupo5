@@ -2,12 +2,15 @@ package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
 import bibliotecagrupo5.modelo.Ejemplar;
+import bibliotecagrupo5.modelo.Libro;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 /* @author @LXWeber Leandro Xavier Weber */
 
@@ -60,4 +63,82 @@ public class EjemplarData {
         }
     }
     
+    public List<Ejemplar> listarEjemplares(){
+        List<Ejemplar> ejemplares = new ArrayList<>();
+        String query = "SELECT * FROM ejemplar";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Ejemplar e = new Ejemplar();
+                Libro l = new Libro();
+                e.setId_ejemplar(rs.getInt("id_ejemplar"));
+                l.setIsbn(rs.getInt("id_libro"));
+                e.setLibro(l);
+                e.setEstado(rs.getInt("estado"));
+
+                ejemplares.add(e);
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            JOptionPane.showMessageDialog(null, "No se encontraron ejemplares");
+        }
+        return ejemplares;
+    }
+    
+    public List<Ejemplar> listarEjemplares(Libro libro){
+        List<Ejemplar> ejemplares = new ArrayList<>();
+        String query = "SELECT * FROM ejemplar WHERE id_libro=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, libro.getIsbn());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Ejemplar e = new Ejemplar();
+                e.setId_ejemplar(rs.getInt("id_ejemplar"));
+                e.setLibro(libro);
+                e.setEstado(rs.getInt("estado"));
+
+                ejemplares.add(e);
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            JOptionPane.showMessageDialog(null, "No se encontraron ejemplares de ese libro");
+        }
+        return ejemplares;
+    }
+    
+    public int cantEjemplares(Libro libro){
+        int cantidad=0;
+        String query = "SELECT * FROM ejemplar WHERE id_libro=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, libro.getIsbn());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                cantidad++;
+            }
+            ps.close();
+        }catch(SQLException sqle){
+            JOptionPane.showMessageDialog(null, "Error al contar cantidad de ejemplares");
+        }
+        return cantidad;
+    }
+    
+    public int cantEjemDisp(Libro libro){
+        int cantidad=0;
+        String query = "SELECT * FROM ejemplar WHERE id_libro=? AND estado=1";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, libro.getIsbn());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                cantidad++;
+            }
+            ps.close();
+        }catch(SQLException sqle){
+            JOptionPane.showMessageDialog(null, "Error al contar cantidad de ejemplares disponibles");
+        }
+        return cantidad;
+    }
 }
