@@ -27,7 +27,16 @@ public class Ejemplar {
         this.libro = libro;
         this.estado = estado;
     }
-
+        
+    public int cambiarEstado(int e){
+        if(e>-1&&e<4){
+            this.estado=e;
+            return estado;
+        } else {
+            return -1;
+        }
+    }
+    
     public int getId_ejemplar() {
         return id_ejemplar;
     }
