@@ -38,21 +38,25 @@ public class EjemplarData {
     
     public void ingresarEjemplares(Ejemplar ejemplar, int cant){
             String query = "INSERT INTO ejemplar(id_ejemplar, id_libro, estado) VALUES (NULL,?,1)";
+            String x = ", (NULL,?,1)";
         for(int i=1;i<cant;i++){
-            String x = ",(NULL,?,1)";
+            query+=x;
         }
         try{
             PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,ejemplar.getLibro().getIsbn());
+            for(int i=1;i<=cant;i++){
+                ps.setInt(i,ejemplar.getLibro().getIsbn());
+            }
             ps.execute();
             ResultSet rs=ps.getGeneratedKeys();
-            if (rs.next()){
+            while (rs.next()){
                 ejemplar.setId_ejemplar(rs.getInt(1));
-                JOptionPane.showMessageDialog(null,cant+" Ejemplares ingresados correctamente");
             }
+            JOptionPane.showMessageDialog(null,cant+" Ejemplares ingresados correctamente");
             ps.close();
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al ingresar Ejemplar.\nAsegurese de que el N° ID no esté repetido.");
+            System.out.println(ex.getMessage());
         }
     }
     
