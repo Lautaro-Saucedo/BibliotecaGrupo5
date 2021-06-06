@@ -49,5 +49,12 @@ public class Lector {
     public void setEstado_lector(boolean estado_lector) {
         this.estado_lector = estado_lector;
     }
+
+    @Override
+    public String toString() {
+        return "Lector{" + "dni_lector=" + dni_lector + ", nombre_lector=" + nombre_lector + ", apellido_lector=" + apellido_lector + ", estado_lector=" + estado_lector + "}\n";
+    }
+    
+    
     
 }

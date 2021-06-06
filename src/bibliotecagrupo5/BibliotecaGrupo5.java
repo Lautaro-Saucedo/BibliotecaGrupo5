@@ -9,6 +9,7 @@ import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.modelo.Ejemplar;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Multa;
+import bibliotecagrupo5.modelo.Prestamo;
 
 /**
  *
@@ -26,10 +27,9 @@ public class BibliotecaGrupo5 {
         Multa m = new Multa();
         Ejemplar e = new Ejemplar();
         
-        e.setId_ejemplar(9);
-        l.setDni_lector(2000);
-        
-        
+        Prestamo p = new Prestamo();
+        p.setId_prestamo(1);
+        pd.registrarDevolucion(p);
         
     }
     
