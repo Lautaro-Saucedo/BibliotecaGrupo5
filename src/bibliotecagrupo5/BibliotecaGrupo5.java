@@ -9,9 +9,6 @@ import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.modelo.Ejemplar;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Multa;
-import bibliotecagrupo5.modelo.Prestamo;
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  *
@@ -32,9 +29,6 @@ public class BibliotecaGrupo5 {
         e.setId_ejemplar(9);
         l.setDni_lector(2000);
         
-        System.out.println(pd.listarSinRetrasos());
-        pd.generarMultas();
-        System.out.println(pd.listarSinRetrasos());
         
         
     }

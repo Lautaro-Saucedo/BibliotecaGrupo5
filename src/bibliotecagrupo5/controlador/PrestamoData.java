@@ -28,7 +28,6 @@ public class PrestamoData {
     }
 
     /*  version completa de la funcion agregar para pruebas por consola */
-    
     public void agregarPrestamo(Prestamo p) {
         String query = "INSERT INTO prestamo VALUES (null,?,?,?,?,?)";
         try {
@@ -57,7 +56,7 @@ public class PrestamoData {
             System.out.println(sqle.getMessage());
         }
     }
-   
+
     //<editor-fold defaultstate="collapsed" desc="version "logica" de agregar,ya que al momento de crear un prestamo, la fecha es hoy,no tiene multa, y tampoco fecha de entrega">
     /*
     public void agregarPrestamo(Prestamo p) {
@@ -79,7 +78,6 @@ public class PrestamoData {
         }
     }*/
     //</editor-fold>
-    
     public Prestamo buscar(int id) {
         String query = "SELECT * FROM prestamo WHERE id_prestamo=?";
         Prestamo p = null;
@@ -97,14 +95,14 @@ public class PrestamoData {
             }
             Ejemplar e = new Ejemplar();
             e.setId_ejemplar(rs.getInt(4));
-            
+
             p = new Prestamo();
             p.setId_prestamo(rs.getInt(1));
             p.setLector(l);
             p.setMulta(m);
             p.setEjemplar(e);
             p.setFecha_inicio(rs.getDate(5).toLocalDate());
-            if (rs.getDate(6) != null){
+            if (rs.getDate(6) != null) {
                 p.setFecha_fin(rs.getDate(6).toLocalDate());
             } else {
                 p.setFecha_fin(null);
@@ -122,27 +120,35 @@ public class PrestamoData {
         String query = "SELECT * FROM prestamo WHERE fecha_fin IS NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Prestamo p = new Prestamo();
-                Lector l = new Lector();
-                l.setDni_lector(rs.getInt(2));
-                Multa m = null;
-                if (rs.getInt(3) != 0) {
-                    m = new Multa();
-                    m.setId_multa(rs.getInt(3));
-                }
-                Ejemplar e = new Ejemplar();
-                e.setId_ejemplar(rs.getInt(4));
+            llenarlistaP(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 
-                p.setId_prestamo(rs.getInt(1));
-                p.setLector(l);
-                p.setMulta(m);
-                p.setEjemplar(e);
-                p.setFecha_inicio(rs.getDate(5).toLocalDate());
-                p.setFecha_fin(null);
-                lista.add(p);
-            }
+    public List<Prestamo> listarPrestamos(LocalDate fecha) {
+        List<Prestamo> lista = new ArrayList<>();
+        String query = "SELECT * FROM prestamo WHERE fecha_inicio = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(fecha));
+            llenarlistaP(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public List<Prestamo> listarPrestamos(Lector l) {
+        List<Prestamo> lista = new ArrayList<>();
+        String query = "SELECT * FROM prestamo WHERE id_lector = ? AND fecha_fin IS NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, l.getDni_lector());
+            llenarlistaP(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,27 +161,7 @@ public class PrestamoData {
         String query = "SELECT * FROM prestamo WHERE fecha_fin IS NOT NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Prestamo p = new Prestamo();
-                Lector l = new Lector();
-                l.setDni_lector(rs.getInt(2));
-                Multa m = null;
-                if (rs.getInt(3) != 0) {
-                    m = new Multa();
-                    m.setId_multa(rs.getInt(3));
-                }
-                Ejemplar e = new Ejemplar();
-                e.setId_ejemplar(rs.getInt(4));
-
-                p.setId_prestamo(rs.getInt(1));
-                p.setLector(l);
-                p.setMulta(m);
-                p.setEjemplar(e);
-                p.setFecha_inicio(rs.getDate(5).toLocalDate());
-                p.setFecha_fin(rs.getDate(6).toLocalDate());
-                lista.add(p);
-            }
+            llenarlistaP(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
@@ -188,28 +174,7 @@ public class PrestamoData {
         String query = "SELECT * FROM prestamo WHERE id_multa IS NOT NULL AND fecha_fin IS NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Prestamo p = new Prestamo();
-                Lector l = new Lector();
-                l.setDni_lector(rs.getInt(2));
-                Multa m = new Multa();
-                m.setId_multa(rs.getInt(3));
-                Ejemplar e = new Ejemplar();
-                e.setId_ejemplar(rs.getInt(4));
-
-                p.setId_prestamo(rs.getInt(1));
-                p.setLector(l);
-                p.setMulta(m);
-                p.setEjemplar(e);
-                p.setFecha_inicio(rs.getDate(5).toLocalDate());
-                if (rs.getDate(6) != null){
-                    p.setFecha_fin(rs.getDate(6).toLocalDate());
-                } else {
-                    p.setFecha_fin(null);
-                }
-                lista.add(p);
-            }
+            llenarlistaP(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,28 +187,37 @@ public class PrestamoData {
         String query = "SELECT * FROM prestamo WHERE id_multa IS NULL AND fecha_fin IS NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Prestamo p = new Prestamo();
-                Lector l = new Lector();
-                l.setDni_lector(rs.getInt(2));
-                Ejemplar e = new Ejemplar();
-                e.setId_ejemplar(rs.getInt(4));
-                p.setId_prestamo(rs.getInt(1));
-                p.setLector(l);
-                p.setMulta(null);
-                p.setEjemplar(e);
-                p.setFecha_inicio(rs.getDate(5).toLocalDate());
-                if (rs.getDate(6) != null){
-                    p.setFecha_fin(rs.getDate(6).toLocalDate());
-                } else {
-                    p.setFecha_fin(null);
-                }
-                lista.add(p);
-            }
+            llenarlistaP(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public List<Lector> lectoresMultados() {
+        List<Lector> lista = new ArrayList<>();
+        String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            llenarlistaL(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return lista;
+    }
+
+    public List<Lector> lectoresMultados(int mes) {
+        List<Lector> lista = new ArrayList<>();
+        String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL AND MONTH(fecha_inicio) = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, mes);
+            llenarlistaL(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
         }
         return lista;
     }
@@ -273,8 +247,8 @@ public class PrestamoData {
             } else {
                 ps.setNull(1, java.sql.Types.INTEGER);
             }
-            if (p.getFecha_fin() != null){
-                ps.setDate(2, Date.valueOf(p.getFecha_fin()));            
+            if (p.getFecha_fin() != null) {
+                ps.setDate(2, Date.valueOf(p.getFecha_fin()));
             } else {
                 ps.setNull(2, java.sql.Types.DATE);
             }
@@ -282,6 +256,46 @@ public class PrestamoData {
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Actualizado con exito.");
             }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void actualizarC(Prestamo p) {
+        String query = "UPDATE prestamo SET id_lector = ?, id_multa = ?, id_ejemplar = ?, fecha_inicio = ?, fecha_fin = ? WHERE id_prestamo = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            if (p.getLector() != null){
+                ps.setInt(1,p.getLector().getDni_lector());
+            } else {
+                ps.setNull(1, java.sql.Types.INTEGER);
+            }
+            if (p.getMulta() != null) {
+                ps.setInt(2, p.getMulta().getId_multa());
+            } else {
+                ps.setNull(2, java.sql.Types.INTEGER);
+            }
+            if (p.getEjemplar() != null){
+                ps.setInt(3,p.getEjemplar().getId_ejemplar());
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            if (p.getFecha_inicio() != null){
+                ps.setDate(4, Date.valueOf(p.getFecha_inicio()));
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
+            }
+            if (p.getFecha_fin() != null) {
+                ps.setDate(5, Date.valueOf(p.getFecha_fin()));
+            } else {
+                ps.setNull(5, java.sql.Types.DATE);
+            }
+            ps.setInt(6, p.getId_prestamo());
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Actualizado con exito.");
+            }
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -290,7 +304,7 @@ public class PrestamoData {
     public void generarMultas() {
         MultaData md = new MultaData();
         List<Prestamo> lista = listarSinRetrasos();
-        for (Prestamo p:lista){
+        for (Prestamo p : lista) {
             if ((p.getFecha_inicio().plusDays(2)).compareTo(LocalDate.now()) < 0) {
                 Multa m = new Multa(LocalDate.now(), null);
                 md.agregarMulta(m);
@@ -305,4 +319,51 @@ public class PrestamoData {
         actualizar(p);
     }
 
+    private List<Prestamo> llenarlistaP(ResultSet rs, List<Prestamo> lista) {
+        try {
+            while (rs.next()) {
+                Prestamo p = new Prestamo();
+                Lector l = new Lector();
+                l.setDni_lector(rs.getInt(2));
+                Multa m = null;
+                if (rs.getInt(3) != 0) {
+                    m = new Multa();
+                    m.setId_multa(rs.getInt(3));
+                }
+                Ejemplar e = new Ejemplar();
+                e.setId_ejemplar(rs.getInt(4));
+
+                p.setId_prestamo(rs.getInt(1));
+                p.setLector(l);
+                p.setMulta(m);
+                p.setEjemplar(e);
+                p.setFecha_inicio(rs.getDate(5).toLocalDate());
+                if (rs.getDate(6) != null) {
+                    p.setFecha_fin(rs.getDate(6).toLocalDate());
+                } else {
+                    p.setFecha_fin(null);
+                }
+                lista.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    private List<Lector> llenarlistaL(ResultSet rs, List<Lector> lista) {
+        try {
+            while (rs.next()) {
+                Lector l = new Lector();
+                l.setDni_lector(rs.getInt(1));
+                l.setNombre_lector(rs.getString(2));
+                l.setApellido_lector(rs.getString(3));
+                l.setEstado_lector(rs.getBoolean(4));
+                lista.add(l);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 }
