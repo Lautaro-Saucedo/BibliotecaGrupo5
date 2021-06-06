@@ -77,8 +77,9 @@ public class PrestamoData {
             System.out.println(sqle.getMessage());
         }
     }
-     */
+    */
     //</editor-fold>
+    
     public Prestamo buscar(int id) {
         String query = "SELECT * FROM prestamo WHERE id_prestamo=?";
         Prestamo p = null;
@@ -91,8 +92,8 @@ public class PrestamoData {
             l.setDni_lector(rs.getInt(2));
             Multa m = null;
             if (rs.getInt(3) != 0) {
-                m = new Multa();
-                m.setId_multa(rs.getInt(3));
+                MultaData md = new MultaData();
+                m = md.buscar(rs.getInt(3));
             }
             Ejemplar e = new Ejemplar();
             e.setId_ejemplar(rs.getInt(4));
@@ -311,7 +312,7 @@ public class PrestamoData {
         List<Prestamo> lista = listarSinRetrasos();
         for (Prestamo p : lista) {
             if ((p.getFecha_inicio().plusDays(30)).compareTo(LocalDate.now()) < 0) {
-                Multa m = new Multa(LocalDate.now(), null);
+                Multa m = new Multa(p.getFecha_inicio().plusDays(30), null);
                 md.agregarMulta(m);
                 p.setMulta(m);
                 actualizar(p);
@@ -320,13 +321,20 @@ public class PrestamoData {
     }
     
     public void registrarDevolucion(Prestamo p) {
-        p = buscar(p.getId_prestamo());
         if (p.getMulta() != null) {
             MultaData md = new MultaData();
-            Multa m = md.buscar(p.getMulta().getId_multa());
-            m.setFecha_fin(LocalDate.now().plusDays(2));
-            md.actualizar(m);
-            p.setMulta(m);
+            p.getMulta().setFecha_fin(LocalDate.now().plusDays(2));
+            for (Prestamo aux:listarDevoluciones()){
+                if (aux.getMulta() != null && !aux.getMulta().equals(p.getMulta()) && aux.getLector().getDni_lector() == p.getLector().getDni_lector() ){
+                    if (aux.getMulta().getFecha_fin() != null && aux.getMulta().getFecha_fin().compareTo(LocalDate.now()) > 0){
+                        aux.getMulta().setFecha_fin(aux.getMulta().getFecha_fin().plusDays(2));
+                        p.getMulta().setFecha_fin(aux.getMulta().getFecha_fin());
+                        md.actualizar(aux.getMulta());
+                        md.actualizar(p.getMulta());
+                    }
+                }
+            }
+            md.actualizar(p.getMulta());
         }
         p.setFecha_fin(LocalDate.now());
         actualizar(p);
@@ -340,8 +348,8 @@ public class PrestamoData {
                 l.setDni_lector(rs.getInt(2));
                 Multa m = null;
                 if (rs.getInt(3) != 0) {
-                    m = new Multa();
-                    m.setId_multa(rs.getInt(3));
+                    MultaData md = new MultaData();
+                    m = md.buscar(rs.getInt(3));
                 }
                 Ejemplar e = new Ejemplar();
                 e.setId_ejemplar(rs.getInt(4));
@@ -381,3 +389,8 @@ public class PrestamoData {
     }
     
 }
+
+//Multa m = md.buscar(p.getMulta().getId_multa());
+//m.setFecha_fin(LocalDate.now().plusDays(2));
+//md.actualizar(m);
+//p.setMulta(m);

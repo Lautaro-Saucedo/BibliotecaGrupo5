@@ -62,7 +62,7 @@ public class MultaData {
         
     }
      */
-    public List<Multa> ListarMultas() {
+    public List<Multa> listarMultas() {
         List<Multa> lista = new ArrayList<>();
         String query = "SELECT * FROM multa";
         try {
@@ -118,6 +118,27 @@ public class MultaData {
         }
         
         return m;
+    }
+    
+    public List<Multa> multasActivas(){
+        List<Multa> lista = new ArrayList<>();
+        String query = "SELECT * FROM multa WHERE fecha_fin IS NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Multa m = new Multa();
+                m.setId_multa(rs.getInt(1));
+                m.setFecha_inicio(rs.getDate(2).toLocalDate());
+                m.setFecha_fin(rs.getDate(3).toLocalDate());
+                lista.add(m);
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            System.out.println(sqle.getMessage());
+        }
+        
+        return lista;
     }
     
 }
