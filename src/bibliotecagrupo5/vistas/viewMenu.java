@@ -51,14 +51,20 @@ public class viewMenu extends javax.swing.JFrame {
             .addGap(0, 479, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
         jmAutor.setText("Autor");
+        jmAutor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jMenuBar1.add(jmAutor);
 
         jmLibro.setText("Libro");
+        jmLibro.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiIngresarLibro.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiIngresarLibro.setText("Ingresar Libro");
         jmLibro.add(jmiIngresarLibro);
 
+        jMenuItem2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jMenuItem2.setText("Buscar Libro");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,15 +76,24 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jmLibro);
 
         jmEjemplar.setText("Ejemplar");
+        jmEjemplar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jmEjemplar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEjemplarActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jmEjemplar);
 
         jmLector.setText("Lector");
+        jmLector.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jMenuBar1.add(jmLector);
 
         jmPrestamo.setText("Prestamo");
+        jmPrestamo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jMenuBar1.add(jmPrestamo);
 
         jmMulta.setText("Multa");
+        jmMulta.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jMenuBar1.add(jmMulta);
 
         setJMenuBar(jMenuBar1);
@@ -100,6 +115,10 @@ public class viewMenu extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jmEjemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEjemplarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmEjemplarActionPerformed
 
     /**
      * @param args the command line arguments
