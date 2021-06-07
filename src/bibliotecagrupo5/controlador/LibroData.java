@@ -151,6 +151,34 @@ public class LibroData {
         return libros;
     }
     
+    public List<Libro> obtenerLibrosXTipo(String tipo){
+        List<Libro> libros = new ArrayList<>();
+        String query = "SELECT * FROM libro WHERE tipo=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, tipo);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Libro l = new Libro();
+                Autor a = new Autor();
+                l.setIsbn(rs.getInt("isbn"));
+                a.setDni_autor(rs.getInt("id_autor"));
+                l.setAutor(a);
+                l.setNombre(rs.getString("nombre"));
+                l.setEditorial(rs.getString("editorial"));
+                l.setAño(rs.getInt("año"));
+                l.setTipo(rs.getString("tipo"));
+
+                libros.add(l);
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            JOptionPane.showMessageDialog(null, "No se encontraron libros de ese tipo");
+        }
+        return libros;
+    }
+    
+    
     public List<Libro> obtenerLibrosXTitulo(String palabras){
         List<Libro> libros = listarLibros();
         List<Libro> encontrados = new ArrayList<>();

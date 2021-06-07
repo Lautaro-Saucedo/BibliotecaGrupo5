@@ -29,12 +29,14 @@ public class viewMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jmAutor = new javax.swing.JMenu();
+        jmLibro = new javax.swing.JMenu();
+        jmiIngresarLibro = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmEjemplar = new javax.swing.JMenu();
+        jmLector = new javax.swing.JMenu();
+        jmPrestamo = new javax.swing.JMenu();
+        jmMulta = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,23 +51,35 @@ public class viewMenu extends javax.swing.JFrame {
             .addGap(0, 479, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Autor");
-        jMenuBar1.add(jMenu1);
+        jmAutor.setText("Autor");
+        jMenuBar1.add(jmAutor);
 
-        jMenu2.setText("Libro");
-        jMenuBar1.add(jMenu2);
+        jmLibro.setText("Libro");
 
-        jMenu3.setText("Ejemplar");
-        jMenuBar1.add(jMenu3);
+        jmiIngresarLibro.setText("Ingresar Libro");
+        jmLibro.add(jmiIngresarLibro);
 
-        jMenu4.setText("Lector");
-        jMenuBar1.add(jMenu4);
+        jMenuItem2.setText("Buscar Libro");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmLibro.add(jMenuItem2);
 
-        jMenu5.setText("Prestamo");
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jmLibro);
 
-        jMenu6.setText("Multa");
-        jMenuBar1.add(jMenu6);
+        jmEjemplar.setText("Ejemplar");
+        jMenuBar1.add(jmEjemplar);
+
+        jmLector.setText("Lector");
+        jMenuBar1.add(jmLector);
+
+        jmPrestamo.setText("Prestamo");
+        jMenuBar1.add(jmPrestamo);
+
+        jmMulta.setText("Multa");
+        jMenuBar1.add(jmMulta);
 
         setJMenuBar(jMenuBar1);
 
@@ -82,6 +96,10 @@ public class viewMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,13 +137,15 @@ public class viewMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu jmAutor;
+    private javax.swing.JMenu jmEjemplar;
+    private javax.swing.JMenu jmLector;
+    private javax.swing.JMenu jmLibro;
+    private javax.swing.JMenu jmMulta;
+    private javax.swing.JMenu jmPrestamo;
+    private javax.swing.JMenuItem jmiIngresarLibro;
     // End of variables declaration//GEN-END:variables
 }
