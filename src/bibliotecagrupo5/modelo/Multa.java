@@ -46,4 +46,29 @@ public class Multa {
     public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
+
+    @Override
+    public int hashCode() {
+        return id_multa;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Multa other = (Multa) obj;
+        if (this.id_multa != other.id_multa) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

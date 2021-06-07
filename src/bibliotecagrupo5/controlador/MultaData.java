@@ -14,20 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /* @author @LXWeber Leandro Xavier Weber */
-
 public class MultaData {
+
     private Connection con;
     
-    public MultaData(){
+    public MultaData() {
         con = Conexion.getConexion();
     }
     
-    public void agregarMulta(Multa m){
+    public void agregarMulta(Multa m) {
         String query = "INSERT INTO multa VALUES (NULL,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, Date.valueOf(m.getFecha_inicio()));
-            if (m.getFecha_fin() != null){
+            if (m.getFecha_fin() != null) {
                 ps.setDate(2, Date.valueOf(m.getFecha_fin()));
             } else {
                 ps.setNull(2, java.sql.Types.DATE);
@@ -42,7 +42,7 @@ public class MultaData {
         }
         
     }
-    
+
     /*
     public void agregarMulta(Multa m){
         String query = "INSERT INTO multa VALUES (NULL,?,NULL)";
@@ -61,15 +61,14 @@ public class MultaData {
         }
         
     }
-    */
-    
-    public List<Multa> ListarMultas(){
+     */
+    public List<Multa> listarMultas() {
         List<Multa> lista = new ArrayList<>();
         String query = "SELECT * FROM multa";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Multa m = new Multa();
                 m.setId_multa(rs.getInt(1));
                 m.setFecha_inicio(rs.getDate(2).toLocalDate());
@@ -83,7 +82,7 @@ public class MultaData {
         return lista;
     }
     
-    public void actualizar(Multa m){
+    public void actualizar(Multa m) {
         String query = "UPDATE multa SET fecha_inicio=?, fecha_fin=? WHERE id_multa=?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -95,6 +94,51 @@ public class MultaData {
         } catch (SQLException ex) {
             Logger.getLogger(MultaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Multa buscar(int id) {
+        Multa m = null;
+        String query = "SELECT * FROM multa WHERE id_multa=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            m = new Multa();
+            m.setId_multa(rs.getInt(1));
+            m.setFecha_inicio(rs.getDate(2).toLocalDate());
+            if (rs.getDate(3) != null) {
+                m.setFecha_fin(rs.getDate(3).toLocalDate());
+            } else {
+                m.setFecha_fin(null);
+            }
+            ps.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        
+        return m;
+    }
+    
+    public List<Multa> multasActivas(){
+        List<Multa> lista = new ArrayList<>();
+        String query = "SELECT * FROM multa WHERE fecha_fin IS NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Multa m = new Multa();
+                m.setId_multa(rs.getInt(1));
+                m.setFecha_inicio(rs.getDate(2).toLocalDate());
+                m.setFecha_fin(rs.getDate(3).toLocalDate());
+                lista.add(m);
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            System.out.println(sqle.getMessage());
+        }
+        
+        return lista;
     }
     
 }
