@@ -44,6 +44,31 @@ public class LibroData {
         
     }
     
+    public Libro buscarLibro(int isbn){
+        Libro l = new Libro();
+        String query = "SELECT * FROM libro WHERE isbn=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setLong(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Autor a = new Autor();
+                l.setIsbn(rs.getInt("isbn"));
+                a.setDni_autor(rs.getInt("id_autor"));
+                l.setAutor(a);
+                l.setNombre(rs.getString("nombre"));
+                l.setEditorial(rs.getString("editorial"));
+                l.setAño(rs.getInt("año"));
+                l.setTipo(rs.getString("tipo"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar libro");
+
+        }
+        return l;
+    }
+    
     public List<Libro> listarLibros(){
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro";

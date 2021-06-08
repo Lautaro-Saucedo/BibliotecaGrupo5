@@ -63,6 +63,28 @@ public class EjemplarData {
         }
     }
     
+    public Ejemplar buscarEjemplar(int id){
+        Ejemplar e = new Ejemplar();
+        String query = "SELECT * FROM ejemplar WHERE id_ejemplar=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Libro l = new Libro();
+                e.setId_ejemplar(rs.getInt("id_ejemplar"));
+                l.setIsbn(rs.getInt("id_libro"));
+                e.setLibro(l);
+                e.setEstado(rs.getInt("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar ejemplar");
+
+        }
+        return e;
+    }
+    
     public List<Ejemplar> listarEjemplares(){
         List<Ejemplar> ejemplares = new ArrayList<>();
         String query = "SELECT * FROM ejemplar";
