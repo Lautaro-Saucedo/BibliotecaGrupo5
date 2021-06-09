@@ -26,58 +26,39 @@ public class PrestamoData {
         con = Conexion.getConexion();
     }
 
-    //  version completa de la funcion agregar para pruebas por consola 
     public void agregarPrestamo(Prestamo p) {
+        EjemplarData ed = new EjemplarData();
         String query = "INSERT INTO prestamo VALUES (null,?,?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, p.getLector().getDni_lector());
-            if (p.getMulta() != null) {
-                ps.setInt(2, p.getMulta().getId_multa());
-            } else {
-                ps.setNull(2, java.sql.Types.INTEGER);
+        if (validarPrestamo(p)) {
+            try {
+                PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, p.getLector().getDni_lector());
+                if (p.getMulta() != null) {
+                    ps.setInt(2, p.getMulta().getId_multa());
+                } else {
+                    ps.setNull(2, java.sql.Types.INTEGER);
+                }
+                ps.setInt(3, p.getEjemplar().getId_ejemplar());
+                ps.setDate(4, Date.valueOf(p.getFecha_inicio()));
+                if (p.getFecha_fin() != null) {
+                    ps.setDate(5, Date.valueOf(p.getFecha_fin()));
+                } else {
+                    ps.setNull(5, java.sql.Types.DATE);
+                }
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente.");
+                }
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                p.setId_prestamo(rs.getInt(1));
+                ps.close();
+                ed.cambiarEstado(p.getEjemplar(), 0);
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
             }
-            ps.setInt(3, p.getEjemplar().getId_ejemplar());
-            ps.setDate(4, Date.valueOf(p.getFecha_inicio()));
-            if (p.getFecha_fin() != null) {
-                ps.setDate(5, Date.valueOf(p.getFecha_fin()));
-            } else {
-                ps.setNull(5, java.sql.Types.DATE);
-            }
-            if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente.");
-            }
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            p.setId_prestamo(rs.getInt(1));
-            ps.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+        } else {
         }
     }
-
-    //<editor-fold defaultstate="collapsed" desc="version "logica" de agregar,ya que al momento de crear un prestamo, la fecha es hoy,no tiene multa, y tampoco fecha de entrega">
-    /*
-    public void agregarPrestamo(Prestamo p) {
-        String query = "INSERT INTO prestamo VALUES (null,?,null,?,?,null)";
-        try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, p.getLector().getDni_lector());
-            ps.setInt(2, p.getEjemplar().getId_ejemplar());
-            ps.setDate(3, Date.valueOf(LocalDate.now()));
-            if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente.");
-            }
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            p.setId_prestamo(rs.getInt(1));
-            ps.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        }
-    }
-     */
-    //</editor-fold>
     
     public Prestamo buscar(int id) {
         String query = "SELECT * FROM prestamo WHERE id_prestamo=?";
@@ -88,22 +69,25 @@ public class PrestamoData {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            Multa m = null;
-            if (rs.getInt(3) != 0) {
-                MultaData md = new MultaData();
-                m = md.buscar(rs.getInt(3));
-            }
-            p = new Prestamo();
-            p.setId_prestamo(id);
-            p.setLector(ld.buscarLector(rs.getInt(2)));
-            p.setMulta(m);
-            p.setEjemplar(ed.buscarEjemplar(rs.getInt(4)));
-            p.setFecha_inicio(rs.getDate(5).toLocalDate());
-            if (rs.getDate(6) != null) {
-                p.setFecha_fin(rs.getDate(6).toLocalDate());
+            if (rs.next()) {
+                Multa m = null;
+                if (rs.getInt(3) != 0) {
+                    MultaData md = new MultaData();
+                    m = md.buscar(rs.getInt(3));
+                }
+                p = new Prestamo();
+                p.setId_prestamo(id);
+                p.setLector(ld.buscarLector(rs.getInt(2)));
+                p.setMulta(m);
+                p.setEjemplar(ed.buscarEjemplar(rs.getInt(4)));
+                p.setFecha_inicio(rs.getDate(5).toLocalDate());
+                if (rs.getDate(6) != null) {
+                    p.setFecha_fin(rs.getDate(6).toLocalDate());
+                } else {
+                    p.setFecha_fin(null);
+                }
             } else {
-                p.setFecha_fin(null);
+                JOptionPane.showMessageDialog(null, "No se encontro.");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -195,7 +179,7 @@ public class PrestamoData {
 
     public List<Lector> lectoresMultados() {
         List<Lector> lista = new ArrayList<>();
-        String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL";
+        String query = "SELECT lector.* FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             llenarlistaL(ps.executeQuery(), lista);
@@ -208,13 +192,31 @@ public class PrestamoData {
 
     public List<Lector> lectoresMultados(int mes) {
         List<Lector> lista = new ArrayList<>();
-        String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL AND MONTH(fecha_inicio) = ?";
+        String query = "SELECT lector.* FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL AND MONTH(fecha_inicio) = ?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, mes);
             llenarlistaL(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Multa> multasDeLector(Lector l){
+        List<Multa> lista = new ArrayList<>();
+        MultaData md = new MultaData();
+        String query = "SELECT multa.id_multa FROM multa,prestamo WHERE prestamo.id_multa=multa.id_multa AND prestamo.id_lector=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, l.getDni_lector());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                lista.add(md.buscar(rs.getInt(1)));
+            }
+            ps.close();
+        } catch(SQLException sqle){
             System.out.println(sqle.getMessage());
         }
         return lista;
@@ -260,50 +262,10 @@ public class PrestamoData {
         }
     }
 
-    //<editor-fold defaultstate="collapsed" desc="version completa de actualizar">
-    /*
-    public void actualizar(Prestamo p) {
-        String query = "UPDATE prestamo SET id_lector = ?, id_multa = ?, id_ejemplar = ?, fecha_inicio = ?, fecha_fin = ? WHERE id_prestamo = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
-            if (p.getLector() != null) {
-                ps.setInt(1, p.getLector().getDni_lector());
-            } else {
-                ps.setNull(1, java.sql.Types.INTEGER);
-            }
-            if (p.getMulta() != null) {
-                ps.setInt(2, p.getMulta().getId_multa());
-            } else {
-                ps.setNull(2, java.sql.Types.INTEGER);
-            }
-            if (p.getEjemplar() != null) {
-                ps.setInt(3, p.getEjemplar().getId_ejemplar());
-            } else {
-                ps.setNull(3, java.sql.Types.INTEGER);
-            }
-            if (p.getFecha_inicio() != null) {
-                ps.setDate(4, Date.valueOf(p.getFecha_inicio()));
-            } else {
-                ps.setNull(4, java.sql.Types.DATE);
-            }
-            if (p.getFecha_fin() != null) {
-                ps.setDate(5, Date.valueOf(p.getFecha_fin()));
-            } else {
-                ps.setNull(5, java.sql.Types.DATE);
-            }
-            ps.setInt(6, p.getId_prestamo());
-            if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Actualizado con exito.");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-     */
-    //</editor-fold>
     public void generarMultas() {
         MultaData md = new MultaData();
+        EjemplarData ed = new EjemplarData();
+        LectorData ld = new LectorData();
         List<Prestamo> lista = listarSinRetrasos();
         for (Prestamo p : lista) {
             if ((p.getFecha_inicio().plusDays(30)).compareTo(LocalDate.now()) < 0) {
@@ -311,11 +273,14 @@ public class PrestamoData {
                 md.agregarMulta(m);
                 p.setMulta(m);
                 actualizar(p);
+                ed.cambiarEstado(p.getEjemplar(), 2);
+                ld.borrarLectorLogico(p.getLector().getDni_lector());
             }
         }
     }
 
     public void registrarDevolucion(Prestamo p) {
+        EjemplarData ed = new EjemplarData();
         if (p.getMulta() != null) {
             MultaData md = new MultaData();
             p.getMulta().setFecha_fin(LocalDate.now().plusDays(2));
@@ -333,6 +298,7 @@ public class PrestamoData {
         }
         p.setFecha_fin(LocalDate.now());
         actualizar(p);
+        ed.cambiarEstado(p.getEjemplar(), 1);
     }
 
     public void eliminarPrestamo(Prestamo p) {
@@ -343,6 +309,7 @@ public class PrestamoData {
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Eliminado con exito.");
             }
+            ps.close();
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
@@ -392,5 +359,85 @@ public class PrestamoData {
         }
         return lista;
     }
+    
+    private boolean validarPrestamo(Prestamo p){
+        LectorData ld = new LectorData();
+        if (prestamosActuales(p.getLector())>=3){
+            return false;
+        }
+        if(lectoresMultados().contains(p.getLector())){
+            return false;
+        }
+        if(p.getEjemplar().getEstado() != 1){
+            return false;
+        }
+        return ld.estadoLector(p.getLector());
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="version "logica" de agregar,ya que al momento de crear un prestamo, la fecha es hoy,no tiene multa, y tampoco fecha de entrega">
+    /*
+    public void agregarPrestamo(Prestamo p) {
+        String query = "INSERT INTO prestamo VALUES (null,?,null,?,?,null)";
+        try {
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, p.getLector().getDni_lector());
+            ps.setInt(2, p.getEjemplar().getId_ejemplar());
+            ps.setDate(3, Date.valueOf(LocalDate.now()));
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            p.setId_prestamo(rs.getInt(1));
+            ps.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+    }
+     */
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="version completa de actualizar">
+    /*
+    public void actualizar(Prestamo p) {
+        String query = "UPDATE prestamo SET id_lector = ?, id_multa = ?, id_ejemplar = ?, fecha_inicio = ?, fecha_fin = ? WHERE id_prestamo = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            if (p.getLector() != null) {
+                ps.setInt(1, p.getLector().getDni_lector());
+            } else {
+                ps.setNull(1, java.sql.Types.INTEGER);
+            }
+            if (p.getMulta() != null) {
+                ps.setInt(2, p.getMulta().getId_multa());
+            } else {
+                ps.setNull(2, java.sql.Types.INTEGER);
+            }
+            if (p.getEjemplar() != null) {
+                ps.setInt(3, p.getEjemplar().getId_ejemplar());
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            if (p.getFecha_inicio() != null) {
+                ps.setDate(4, Date.valueOf(p.getFecha_inicio()));
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
+            }
+            if (p.getFecha_fin() != null) {
+                ps.setDate(5, Date.valueOf(p.getFecha_fin()));
+            } else {
+                ps.setNull(5, java.sql.Types.DATE);
+            }
+            ps.setInt(6, p.getId_prestamo());
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Actualizado con exito.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     */
+    //</editor-fold>
 
 }

@@ -54,6 +54,30 @@ public class Lector {
     public String toString() {
         return "DNI: " + dni_lector + "\nNombre: " + nombre_lector + "\nApellido: " + apellido_lector + "\nEstado: " + estado_lector + "\n";
     }
+
+    @Override
+    public int hashCode() {
+        return dni_lector;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Lector other = (Lector) obj;
+        if (this.dni_lector != other.dni_lector) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

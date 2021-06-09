@@ -3,10 +3,12 @@ package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
 import bibliotecagrupo5.modelo.Lector;
+import bibliotecagrupo5.modelo.Multa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -62,7 +64,6 @@ public class LectorData {
         
         return lectores;
     }
-    
     
     public void borrarLectorFisico(int dni){
          String query = "DELETE FROM lector WHERE dni_lector=?";
@@ -134,6 +135,7 @@ public class LectorData {
             JOptionPane.showMessageDialog(null, "Error al actualizar lector");
         }
     }
+    
     public Lector buscarLector(int dni) {
         Lector l = new Lector();
         String query ="SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector WHERE dni_lector=?"; 
@@ -154,6 +156,18 @@ public class LectorData {
 
         }
         return l;
+    }
+    
+    public boolean estadoLector(Lector l){
+        PrestamoData pd = new PrestamoData();
+        for (Multa m: pd.multasDeLector(l)){
+            if (m.getFecha_fin().equals(null) || m.getFecha_fin().compareTo(LocalDate.now()) > 0){
+                borrarLectorLogico(l.getDni_lector());
+                return false;
+            }
+        }
+        restaurarLector(l.getDni_lector());
+        return true;
     }
     
 }

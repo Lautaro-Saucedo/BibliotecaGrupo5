@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /* @author @LXWeber Leandro Xavier Weber */
 public class MultaData {
@@ -72,7 +73,11 @@ public class MultaData {
                 Multa m = new Multa();
                 m.setId_multa(rs.getInt(1));
                 m.setFecha_inicio(rs.getDate(2).toLocalDate());
-                m.setFecha_fin(rs.getDate(2).toLocalDate());
+                if (rs.getDate(3) != null){
+                    m.setFecha_fin(rs.getDate(3).toLocalDate());
+                }else {
+                    m.setFecha_fin(null);
+                }
                 lista.add(m);
             }
             ps.close();
@@ -130,7 +135,11 @@ public class MultaData {
                 Multa m = new Multa();
                 m.setId_multa(rs.getInt(1));
                 m.setFecha_inicio(rs.getDate(2).toLocalDate());
-                m.setFecha_fin(rs.getDate(3).toLocalDate());
+                if (rs.getDate(3) != null){
+                    m.setFecha_fin(rs.getDate(3).toLocalDate());
+                }else {
+                    m.setFecha_fin(null);
+                }
                 lista.add(m);
             }
             ps.close();
@@ -139,6 +148,20 @@ public class MultaData {
         }
         
         return lista;
+    }
+    
+    public void eliminarMulta(Multa m){
+        String query = "DELETE FROM multa WHERE id_multa=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,m.getId_multa());
+            if (ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Eliminado con exito.");
+            }
+            ps.close();
+        } catch(SQLException sqle){
+            
+        }
     }
     
 }

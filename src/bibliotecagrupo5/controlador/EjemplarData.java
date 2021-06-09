@@ -161,4 +161,37 @@ public class EjemplarData {
         }
         return cantidad;
     }
+    
+    public void cambiarEstado(Ejemplar e, int estado){
+        if (estado>-1 && estado<4) {
+            String query = "UPDATE ejemplar SET estado=? WHERE id_ejemplar=?";
+            try {
+                PreparedStatement ps = conexion.prepareStatement(query);
+                ps.setInt(1, estado);
+                ps.setInt(2, e.getId_ejemplar());
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(null, "Estado actualizado.");
+                }
+                ps.close();
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Estado invalido.");
+        }
+    }
+    
+    public void eliminarEjemplar(Ejemplar e){
+        String query = "DELETE FROM ejemplar WHERE id_ejemplar=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, e.getId_ejemplar());
+            if (ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Ejemplar eliminado con exito");
+            }
+            ps.close();
+        } catch(SQLException sqle){
+            System.out.println(sqle.getMessage());
+        }
+    }
 }

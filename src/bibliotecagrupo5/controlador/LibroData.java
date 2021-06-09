@@ -1,6 +1,5 @@
 package bibliotecagrupo5.controlador;
 
-import bibliotecagrupo5.modelo.Autor;
 import bibliotecagrupo5.modelo.Conexion;
 import bibliotecagrupo5.modelo.Libro;
 import java.sql.Connection;
@@ -67,6 +66,25 @@ public class LibroData {
             
         }
         return l;
+    }
+    
+    public void actualizarLibro(Libro l){
+        String query = "UPDATE libro SET id_autor=?,nombre=?,editorial=?,año=?,tipo=? WHERE isbn=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, l.getAutor().getDni_autor());
+            ps.setString(2, l.getNombre());
+            ps.setString(3, l.getEditorial());
+            ps.setInt(4, l.getAño());
+            ps.setString(5, l.getTipo());
+            ps.setInt(6, l.getIsbn());
+            if (ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Actualizado con exito.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     public List<Libro> listarLibros() {
