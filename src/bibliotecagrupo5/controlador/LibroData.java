@@ -10,22 +10,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
 
 /* @author @LXWeber Leandro Xavier Weber */
-
 public class LibroData {
     
     private Connection conexion = null;
-
+    
     public LibroData() {
         this.conexion = Conexion.getConexion();
     }
     
-    public void ingresarLibro(Libro libro){
+    public void ingresarLibro(Libro libro) {
         String query = "INSERT INTO libro(isbn, id_autor, nombre, editorial, año, tipo) VALUES (?,?,?,?,?,?)";
-        try{
+        try {
             PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, libro.getIsbn());
             ps.setInt(2, libro.getAutor().getDni_autor());
@@ -37,25 +38,24 @@ public class LibroData {
                 JOptionPane.showMessageDialog(null, "Libro ingresado correctamente");
             }
             ps.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al ingresar libro.\nAsegurese de que el N° ISBN no esté repetido.");
             System.out.println(ex.getMessage());
         }
         
     }
     
-    public Libro buscarLibro(int isbn){
+    public Libro buscarLibro(int isbn) {
         Libro l = new Libro();
+        AutorData ad = new AutorData();
         String query = "SELECT * FROM libro WHERE isbn=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setLong(1, isbn);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Autor a = new Autor();
                 l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
+                l.setAutor(ad.buscarAutor(rs.getInt("id_autor")));
                 l.setNombre(rs.getString("nombre"));
                 l.setEditorial(rs.getString("editorial"));
                 l.setAño(rs.getInt("año"));
@@ -64,172 +64,126 @@ public class LibroData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar libro");
-
+            
         }
         return l;
     }
     
-    public List<Libro> listarLibros(){
+    public List<Libro> listarLibros() {
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Libro l = new Libro();
-                Autor a = new Autor();
-                l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
-                l.setNombre(rs.getString("nombre"));
-                l.setEditorial(rs.getString("editorial"));
-                l.setAño(rs.getInt("año"));
-                l.setTipo(rs.getString("tipo"));
-
-                libros.add(l);
-            }
+            llenarLista(ps.executeQuery(), libros);
             ps.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al listar libros");
         }
         return libros;
     }
     
-    public List<Libro> obtenerLibrosXAutor(int id_autor){
+    public List<Libro> obtenerLibrosXAutor(int id_autor) {
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro WHERE id_autor=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id_autor);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Libro l = new Libro();
-                Autor a = new Autor();
-                l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
-                l.setNombre(rs.getString("nombre"));
-                l.setEditorial(rs.getString("editorial"));
-                l.setAño(rs.getInt("año"));
-                l.setTipo(rs.getString("tipo"));
-
-                libros.add(l);
-            }
+            llenarLista(ps.executeQuery(), libros);
             ps.close();
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "No se encontraron libros de ese autor");
         }
         return libros;
     }
     
-    public List<Libro> obtenerLibrosXAño(int año){
+    public List<Libro> obtenerLibrosXAño(int año) {
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro WHERE año=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, año);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Libro l = new Libro();
-                Autor a = new Autor();
-                l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
-                l.setNombre(rs.getString("nombre"));
-                l.setEditorial(rs.getString("editorial"));
-                l.setAño(rs.getInt("año"));
-                l.setTipo(rs.getString("tipo"));
-
-                libros.add(l);
-            }
+            llenarLista(ps.executeQuery(), libros);
             ps.close();
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "No se encontraron libros de ese año");
         }
         return libros;
     }
     
-    public List<Libro> obtenerLibrosXEditorial(String editorial){
+    public List<Libro> obtenerLibrosXEditorial(String editorial) {
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro WHERE editorial=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, editorial);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Libro l = new Libro();
-                Autor a = new Autor();
-                l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
-                l.setNombre(rs.getString("nombre"));
-                l.setEditorial(rs.getString("editorial"));
-                l.setAño(rs.getInt("año"));
-                l.setTipo(rs.getString("tipo"));
-
-                libros.add(l);
-            }
+            llenarLista(ps.executeQuery(), libros);
             ps.close();
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "No se encontraron libros de esa editorial");
         }
         return libros;
     }
     
-    public List<Libro> obtenerLibrosXTipo(String tipo){
+    public List<Libro> obtenerLibrosXTipo(String tipo) {
         List<Libro> libros = new ArrayList<>();
         String query = "SELECT * FROM libro WHERE tipo=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, tipo);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Libro l = new Libro();
-                Autor a = new Autor();
-                l.setIsbn(rs.getInt("isbn"));
-                a.setDni_autor(rs.getInt("id_autor"));
-                l.setAutor(a);
-                l.setNombre(rs.getString("nombre"));
-                l.setEditorial(rs.getString("editorial"));
-                l.setAño(rs.getInt("año"));
-                l.setTipo(rs.getString("tipo"));
-
-                libros.add(l);
-            }
+            llenarLista(ps.executeQuery(), libros);
             ps.close();
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "No se encontraron libros de ese tipo");
         }
         return libros;
     }
     
-    
-    public List<Libro> obtenerLibrosXTitulo(String palabras){
+    public List<Libro> obtenerLibrosXTitulo(String palabras) {
         List<Libro> libros = listarLibros();
         List<Libro> encontrados = new ArrayList<>();
-        for(Libro l : libros){
+        for (Libro l : libros) {
             Pattern regex = Pattern.compile("\\w?" + Pattern.quote(palabras) + "\\w?", Pattern.CASE_INSENSITIVE);
             Matcher match = regex.matcher(l.getNombre());
-            if(match.find()){
+            if (match.find()) {
                 encontrados.add(l);
             }
         }
         return encontrados;
     }
     
-    public void eliminarLibro(int isbn){
+    public void eliminarLibro(int isbn) {
         String query = "DELETE FROM libro WHERE isbn=?";
-        try{
-            PreparedStatement ps= conexion.prepareStatement(query);
-            ps.setLong(1,isbn);
-            if(ps.executeUpdate() == 1){
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setLong(1, isbn);
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Libro eliminado");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Imposible eliminar libro inexistente");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar libro.\nAsegurese de no tener ningún ejemplar del mismo.");
         }
+    }
+    
+    private List<Libro> llenarLista(ResultSet rs, List<Libro> lista){
+        AutorData ad = new AutorData();
+        try {
+            while (rs.next()) {
+                Libro l = new Libro();
+                l.setIsbn(rs.getInt("isbn"));
+                l.setAutor(ad.buscarAutor(rs.getInt("id_autor")));
+                l.setNombre(rs.getString("nombre"));
+                l.setEditorial(rs.getString("editorial"));
+                l.setAño(rs.getInt("año"));
+                l.setTipo(rs.getString("tipo"));
+                
+                lista.add(l);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
 }

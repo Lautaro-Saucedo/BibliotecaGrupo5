@@ -1,7 +1,6 @@
 package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
-import bibliotecagrupo5.modelo.Ejemplar;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Multa;
 import bibliotecagrupo5.modelo.Prestamo;
@@ -20,9 +19,9 @@ import javax.swing.JOptionPane;
 
 /* @author @LXWeber Leandro Xavier Weber */
 public class PrestamoData {
-    
+
     private Connection con;
-    
+
     public PrestamoData() {
         con = Conexion.getConexion();
     }
@@ -77,32 +76,29 @@ public class PrestamoData {
             System.out.println(sqle.getMessage());
         }
     }
-    */
+     */
     //</editor-fold>
     
     public Prestamo buscar(int id) {
         String query = "SELECT * FROM prestamo WHERE id_prestamo=?";
         Prestamo p = null;
+        EjemplarData ed = new EjemplarData();
+        LectorData ld = new LectorData();
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            Lector l = new Lector();
-            l.setDni_lector(rs.getInt(2));
             Multa m = null;
             if (rs.getInt(3) != 0) {
                 MultaData md = new MultaData();
                 m = md.buscar(rs.getInt(3));
             }
-            Ejemplar e = new Ejemplar();
-            e.setId_ejemplar(rs.getInt(4));
-            
             p = new Prestamo();
-            p.setId_prestamo(rs.getInt(1));
-            p.setLector(l);
+            p.setId_prestamo(id);
+            p.setLector(ld.buscarLector(rs.getInt(2)));
             p.setMulta(m);
-            p.setEjemplar(e);
+            p.setEjemplar(ed.buscarEjemplar(rs.getInt(4)));
             p.setFecha_inicio(rs.getDate(5).toLocalDate());
             if (rs.getDate(6) != null) {
                 p.setFecha_fin(rs.getDate(6).toLocalDate());
@@ -116,7 +112,7 @@ public class PrestamoData {
         }
         return p;
     }
-    
+
     public List<Prestamo> listarPrestamos() {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE fecha_fin IS NULL";
@@ -129,7 +125,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Prestamo> listarPrestamos(LocalDate fecha) {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE fecha_inicio = ?";
@@ -143,7 +139,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Prestamo> listarPrestamos(Lector l) {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE id_lector = ? AND fecha_fin IS NULL";
@@ -157,7 +153,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Prestamo> listarDevoluciones() {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE fecha_fin IS NOT NULL";
@@ -170,7 +166,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Prestamo> listarRetrasos() {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE id_multa IS NOT NULL AND fecha_fin IS NULL";
@@ -183,7 +179,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Prestamo> listarSinRetrasos() {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE id_multa IS NULL AND fecha_fin IS NULL";
@@ -196,7 +192,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Lector> lectoresMultados() {
         List<Lector> lista = new ArrayList<>();
         String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL";
@@ -209,7 +205,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public List<Lector> lectoresMultados(int mes) {
         List<Lector> lista = new ArrayList<>();
         String query = "SELECT dni_lector, nombre_lector, apellido_lector, estado FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL AND MONTH(fecha_inicio) = ?";
@@ -223,7 +219,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     public int prestamosActuales(Lector l) {
         int aux = -1;
         String query = "SELECT COUNT(*) FROM prestamo WHERE id_lector = ?";
@@ -239,7 +235,7 @@ public class PrestamoData {
         }
         return aux;
     }
-    
+
     public void actualizar(Prestamo p) {
         String query = "UPDATE prestamo SET id_multa=?,fecha_fin=? WHERE id_prestamo=?";
         try {
@@ -306,7 +302,6 @@ public class PrestamoData {
     }
      */
     //</editor-fold>
-    
     public void generarMultas() {
         MultaData md = new MultaData();
         List<Prestamo> lista = listarSinRetrasos();
@@ -319,14 +314,14 @@ public class PrestamoData {
             }
         }
     }
-    
+
     public void registrarDevolucion(Prestamo p) {
         if (p.getMulta() != null) {
             MultaData md = new MultaData();
             p.getMulta().setFecha_fin(LocalDate.now().plusDays(2));
-            for (Prestamo aux:listarDevoluciones()){
-                if (aux.getMulta() != null && !aux.getMulta().equals(p.getMulta()) && aux.getLector().getDni_lector() == p.getLector().getDni_lector() ){
-                    if (aux.getMulta().getFecha_fin() != null && aux.getMulta().getFecha_fin().compareTo(LocalDate.now()) > 0){
+            for (Prestamo aux : listarDevoluciones()) {
+                if (aux.getMulta() != null && !aux.getMulta().equals(p.getMulta()) && aux.getLector().getDni_lector() == p.getLector().getDni_lector()) {
+                    if (aux.getMulta().getFecha_fin() != null && aux.getMulta().getFecha_fin().compareTo(LocalDate.now()) > 0) {
                         aux.getMulta().setFecha_fin(aux.getMulta().getFecha_fin().plusDays(2));
                         p.getMulta().setFecha_fin(aux.getMulta().getFecha_fin());
                         md.actualizar(aux.getMulta());
@@ -339,25 +334,35 @@ public class PrestamoData {
         p.setFecha_fin(LocalDate.now());
         actualizar(p);
     }
-    
+
+    public void eliminarPrestamo(Prestamo p) {
+        String query = "DELETE FROM prestamo WHERE id_prestamo=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, p.getId_prestamo());
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Eliminado con exito.");
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+    }
+
     private List<Prestamo> llenarlistaP(ResultSet rs, List<Prestamo> lista) {
+        MultaData md = new MultaData();
+        LectorData ld = new LectorData();
+        EjemplarData ed = new EjemplarData();
         try {
             while (rs.next()) {
                 Prestamo p = new Prestamo();
-                Lector l = new Lector();
-                l.setDni_lector(rs.getInt(2));
                 Multa m = null;
                 if (rs.getInt(3) != 0) {
-                    MultaData md = new MultaData();
                     m = md.buscar(rs.getInt(3));
                 }
-                Ejemplar e = new Ejemplar();
-                e.setId_ejemplar(rs.getInt(4));
-                
                 p.setId_prestamo(rs.getInt(1));
-                p.setLector(l);
+                p.setLector(ld.buscarLector(rs.getInt(2)));
                 p.setMulta(m);
-                p.setEjemplar(e);
+                p.setEjemplar(ed.buscarEjemplar(rs.getInt(4)));
                 p.setFecha_inicio(rs.getDate(5).toLocalDate());
                 if (rs.getDate(6) != null) {
                     p.setFecha_fin(rs.getDate(6).toLocalDate());
@@ -371,7 +376,7 @@ public class PrestamoData {
         }
         return lista;
     }
-    
+
     private List<Lector> llenarlistaL(ResultSet rs, List<Lector> lista) {
         try {
             while (rs.next()) {
@@ -387,10 +392,5 @@ public class PrestamoData {
         }
         return lista;
     }
-    
-}
 
-//Multa m = md.buscar(p.getMulta().getId_multa());
-//m.setFecha_fin(LocalDate.now().plusDays(2));
-//md.actualizar(m);
-//p.setMulta(m);
+}

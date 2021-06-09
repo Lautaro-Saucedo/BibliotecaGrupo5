@@ -6,10 +6,6 @@
 package bibliotecagrupo5;
 
 import bibliotecagrupo5.controlador.PrestamoData;
-import bibliotecagrupo5.modelo.Ejemplar;
-import bibliotecagrupo5.modelo.Lector;
-import bibliotecagrupo5.modelo.Multa;
-import bibliotecagrupo5.modelo.Prestamo;
 
 /**
  *
@@ -23,13 +19,8 @@ public class BibliotecaGrupo5 {
     public static void main(String[] args) {
         PrestamoData pd = new PrestamoData();
         
-        Lector l = new Lector();
-        Multa m = new Multa();
-        Ejemplar e = new Ejemplar();
-        
-        Prestamo p = new Prestamo();
-        p.setId_prestamo(1);
-        pd.registrarDevolucion(p);
+        System.out.println();
+        pd.eliminarPrestamo(pd.buscar(1));
         
     }
     
