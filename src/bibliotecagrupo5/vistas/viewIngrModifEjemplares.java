@@ -32,14 +32,7 @@ public class viewIngrModifEjemplares extends javax.swing.JInternalFrame {
         jlCantidad = new javax.swing.JLabel();
         jtfCantidad = new javax.swing.JTextField();
         jbGuardar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jlIdEjempar = new javax.swing.JLabel();
-        jtfIdEjemplar = new javax.swing.JTextField();
-        Estados = new javax.swing.JComboBox<>();
-        jlEstado = new javax.swing.JLabel();
-        jlTituloModificar = new javax.swing.JLabel();
         jlTituloIngresar = new javax.swing.JLabel();
-        jbModificar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Ingresar / Modificar Ejemplares");
@@ -63,54 +56,17 @@ public class viewIngrModifEjemplares extends javax.swing.JInternalFrame {
             }
         });
 
-        jlIdEjempar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jlIdEjempar.setText("ID ejemplar:");
-
-        jtfIdEjemplar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-
-        Estados.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        Estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jlEstado.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jlEstado.setText("Estado:");
-
-        jlTituloModificar.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
-        jlTituloModificar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlTituloModificar.setText("Modificar Estado de Ejemplar");
-
         jlTituloIngresar.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
         jlTituloIngresar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlTituloIngresar.setText("Ingresar Ejemplares");
-
-        jbModificar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jbModificar.setText("Modificar");
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlTituloModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlIdEjempar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfIdEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                        .addComponent(jlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -118,12 +74,12 @@ public class viewIngrModifEjemplares extends javax.swing.JInternalFrame {
                         .addGap(54, 54, 54)
                         .addComponent(jlCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfCantidad))
+                        .addComponent(jtfCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
                     .addComponent(jlTituloIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(207, 207, 207)
-                .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(145, 145, 145)
+                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -139,19 +95,7 @@ public class viewIngrModifEjemplares extends javax.swing.JInternalFrame {
                     .addComponent(jtfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jbGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlTituloModificar)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlIdEjempar)
-                    .addComponent(jtfIdEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlEstado))
-                .addGap(18, 18, 18)
-                .addComponent(jbModificar)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,24 +105,13 @@ public class viewIngrModifEjemplares extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbGuardarActionPerformed
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Estados;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton jbGuardar;
-    private javax.swing.JButton jbModificar;
     private javax.swing.JComboBox<String> jcbLibros;
     private javax.swing.JLabel jlCantidad;
-    private javax.swing.JLabel jlEstado;
-    private javax.swing.JLabel jlIdEjempar;
     private javax.swing.JLabel jlLibro;
     private javax.swing.JLabel jlTituloIngresar;
-    private javax.swing.JLabel jlTituloModificar;
     private javax.swing.JTextField jtfCantidad;
-    private javax.swing.JTextField jtfIdEjemplar;
     // End of variables declaration//GEN-END:variables
 }

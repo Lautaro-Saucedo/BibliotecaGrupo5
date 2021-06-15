@@ -5,6 +5,10 @@
  */
 package bibliotecagrupo5.vistas;
 
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
@@ -36,7 +40,7 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
         jtfNacionalidad = new javax.swing.JTextField();
         jlTitulo = new javax.swing.JLabel();
         jlDni = new javax.swing.JLabel();
-        jbGuardar = new javax.swing.JButton();
+        jbIngresar = new javax.swing.JButton();
         jlNombre = new javax.swing.JLabel();
         jtfNombre = new javax.swing.JTextField();
         jdcFecha = new com.toedter.calendar.JDateChooser();
@@ -54,6 +58,12 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
         jlNacionalidad.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jlNacionalidad.setText("Nacionalidad:");
 
+        jtfFechaNac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfFechaNacActionPerformed(evt);
+            }
+        });
+
         jlTitulo.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
         jlTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlTitulo.setText("Ingresar Autor");
@@ -61,11 +71,11 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
         jlDni.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jlDni.setText("DNI:");
 
-        jbGuardar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jbGuardar.setText("Guardar");
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jbIngresar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jbIngresar.setText("Ingresar");
+        jbIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
+                jbIngresarActionPerformed(evt);
             }
         });
 
@@ -90,7 +100,7 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -98,7 +108,7 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jtfFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jlNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,25 +157,61 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
                     .addComponent(jtfNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar)
+                    .addComponent(jbIngresar)
                     .addComponent(jbLimpiar))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+    public JButton getJbIngresar() {
+        return jbIngresar;
+    }
+
+    public JButton getJbLimpiar() {
+        return jbLimpiar;
+    }
+    
+    public JTextField getJtfDni() {
+        return jtfDni;
+    }
+    
+    public JTextField getJtfNombre() {
+        return jtfNombre;
+    }
+    
+    public JTextField getJtfApellido() {
+        return jtfApellido;
+    }
+
+    public JTextField getJtfFecha() {
+        return jtfFechaNac;
+    }
+    
+    public JDateChooser getJdcFecha() {
+        return jdcFecha;
+    }
+    
+    public JTextField getJtfNacionalidad() {
+        return jtfNacionalidad;
+    }
+
+    private void jbIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbGuardarActionPerformed
+    }//GEN-LAST:event_jbIngresarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
+    private void jtfFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfFechaNacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfFechaNacActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbIngresar;
     private javax.swing.JButton jbLimpiar;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel jlApellido;
