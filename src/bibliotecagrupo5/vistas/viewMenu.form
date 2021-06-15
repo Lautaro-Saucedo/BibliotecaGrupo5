@@ -16,6 +16,13 @@
               <Font name="Verdana" size="12" style="0"/>
             </Property>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiIngresarAutor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ingresar Autor"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmLibro">
           <Properties>
@@ -56,6 +63,18 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmEjemplarActionPerformed"/>
           </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiIngrModifEjemplares">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ingresar / Modificar"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarBorrar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar / Borrar"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmLector">
           <Properties>
@@ -64,6 +83,13 @@
               <Font name="Verdana" size="12" style="0"/>
             </Property>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ingresar Lector"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmPrestamo">
           <Properties>

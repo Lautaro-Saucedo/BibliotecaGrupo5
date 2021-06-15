@@ -30,11 +30,15 @@ public class viewMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmAutor = new javax.swing.JMenu();
+        jmiIngresarAutor = new javax.swing.JMenuItem();
         jmLibro = new javax.swing.JMenu();
         jmiIngresarLibro = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jmEjemplar = new javax.swing.JMenu();
+        jmiIngrModifEjemplares = new javax.swing.JMenuItem();
+        jmiBuscarBorrar = new javax.swing.JMenuItem();
         jmLector = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jmPrestamo = new javax.swing.JMenu();
         jmMulta = new javax.swing.JMenu();
 
@@ -55,6 +59,10 @@ public class viewMenu extends javax.swing.JFrame {
 
         jmAutor.setText("Autor");
         jmAutor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jmiIngresarAutor.setText("Ingresar Autor");
+        jmAutor.add(jmiIngresarAutor);
+
         jMenuBar1.add(jmAutor);
 
         jmLibro.setText("Libro");
@@ -82,10 +90,21 @@ public class viewMenu extends javax.swing.JFrame {
                 jmEjemplarActionPerformed(evt);
             }
         });
+
+        jmiIngrModifEjemplares.setText("Ingresar / Modificar");
+        jmEjemplar.add(jmiIngrModifEjemplares);
+
+        jmiBuscarBorrar.setText("Buscar / Borrar");
+        jmEjemplar.add(jmiBuscarBorrar);
+
         jMenuBar1.add(jmEjemplar);
 
         jmLector.setText("Lector");
         jmLector.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jMenuItem1.setText("Ingresar Lector");
+        jmLector.add(jMenuItem1);
+
         jMenuBar1.add(jmLector);
 
         jmPrestamo.setText("Prestamo");
@@ -157,6 +176,7 @@ public class viewMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmAutor;
@@ -165,6 +185,9 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jmLibro;
     private javax.swing.JMenu jmMulta;
     private javax.swing.JMenu jmPrestamo;
+    private javax.swing.JMenuItem jmiBuscarBorrar;
+    private javax.swing.JMenuItem jmiIngrModifEjemplares;
+    private javax.swing.JMenuItem jmiIngresarAutor;
     private javax.swing.JMenuItem jmiIngresarLibro;
     // End of variables declaration//GEN-END:variables
 }
