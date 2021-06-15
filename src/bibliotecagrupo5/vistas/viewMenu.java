@@ -5,12 +5,24 @@
  */
 package bibliotecagrupo5.vistas;
 
+import bibliotecagrupo5.controlador.AutorData;
+import bibliotecagrupo5.controlador.EjemplarData;
+import bibliotecagrupo5.controlador.LectorData;
+import bibliotecagrupo5.controlador.LibroData;
+import bibliotecagrupo5.controlador.MultaData;
+import bibliotecagrupo5.controlador.PrestamoData;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
  */
 public class viewMenu extends javax.swing.JFrame {
-
+    private AutorData ad = new AutorData();
+    private EjemplarData ed = new EjemplarData();
+    private LectorData led = new LectorData();
+    private LibroData lid = new LibroData();
+    private MultaData md = new MultaData();
+    private PrestamoData pd = new PrestamoData();
     /**
      * Creates new form viewMenu
      */
@@ -28,31 +40,44 @@ public class viewMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmAutor = new javax.swing.JMenu();
         jmiIngresarAutor = new javax.swing.JMenuItem();
         jmLibro = new javax.swing.JMenu();
         jmiIngresarLibro = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiBuscarLibro = new javax.swing.JMenuItem();
         jmEjemplar = new javax.swing.JMenu();
         jmiIngrModifEjemplares = new javax.swing.JMenuItem();
         jmiBuscarBorrar = new javax.swing.JMenuItem();
         jmLector = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiIngresarLector = new javax.swing.JMenuItem();
         jmPrestamo = new javax.swing.JMenu();
+        jmiListarPrestamos = new javax.swing.JMenuItem();
         jmMulta = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 479, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
 
         jMenuBar1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -72,14 +97,14 @@ public class viewMenu extends javax.swing.JFrame {
         jmiIngresarLibro.setText("Ingresar Libro");
         jmLibro.add(jmiIngresarLibro);
 
-        jMenuItem2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jMenuItem2.setText("Buscar Libro");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmiBuscarLibro.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jmiBuscarLibro.setText("Buscar Libro");
+        jmiBuscarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiBuscarLibroActionPerformed(evt);
             }
         });
-        jmLibro.add(jMenuItem2);
+        jmLibro.add(jmiBuscarLibro);
 
         jMenuBar1.add(jmLibro);
 
@@ -102,13 +127,22 @@ public class viewMenu extends javax.swing.JFrame {
         jmLector.setText("Lector");
         jmLector.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        jMenuItem1.setText("Ingresar Lector");
-        jmLector.add(jMenuItem1);
+        jmiIngresarLector.setText("Ingresar Lector");
+        jmLector.add(jmiIngresarLector);
 
         jMenuBar1.add(jmLector);
 
         jmPrestamo.setText("Prestamo");
         jmPrestamo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jmiListarPrestamos.setText("Listar Prestamos");
+        jmiListarPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarPrestamosActionPerformed(evt);
+            }
+        });
+        jmPrestamo.add(jmiListarPrestamos);
+
         jMenuBar1.add(jmPrestamo);
 
         jmMulta.setText("Multa");
@@ -131,13 +165,18 @@ public class viewMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiBuscarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarLibroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmiBuscarLibroActionPerformed
 
     private void jmEjemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEjemplarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmEjemplarActionPerformed
+
+    private void jmiListarPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarPrestamosActionPerformed
+        viewPrestamos vp = new viewPrestamos();
+        
+    }//GEN-LAST:event_jmiListarPrestamosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,9 +214,8 @@ public class viewMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmAutor;
     private javax.swing.JMenu jmEjemplar;
@@ -186,8 +224,11 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jmMulta;
     private javax.swing.JMenu jmPrestamo;
     private javax.swing.JMenuItem jmiBuscarBorrar;
+    private javax.swing.JMenuItem jmiBuscarLibro;
     private javax.swing.JMenuItem jmiIngrModifEjemplares;
     private javax.swing.JMenuItem jmiIngresarAutor;
+    private javax.swing.JMenuItem jmiIngresarLector;
     private javax.swing.JMenuItem jmiIngresarLibro;
+    private javax.swing.JMenuItem jmiListarPrestamos;
     // End of variables declaration//GEN-END:variables
 }
