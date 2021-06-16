@@ -5,6 +5,12 @@
  */
 package bibliotecagrupo5.vistas;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
@@ -33,12 +39,11 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
         jrbAutor = new javax.swing.JRadioButton();
         jrbAño = new javax.swing.JRadioButton();
         jrbEditorial = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jbBuscar = new javax.swing.JButton();
+        jcbAutor = new javax.swing.JComboBox<>();
+        jcbAño = new javax.swing.JComboBox<>();
+        jcbEditorial = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtListado = new javax.swing.JTable();
         jlTitulo = new javax.swing.JLabel();
         jcbTipo = new javax.swing.JComboBox<>();
         jrbTipo = new javax.swing.JRadioButton();
@@ -81,20 +86,17 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbAutor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbAutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbAño.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbEditorial.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbEditorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jbBuscar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jbBuscar.setText("Buscar");
-
-        jTable1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtListado.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jtListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,7 +107,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtListado);
 
         jlTitulo.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
         jlTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -145,33 +147,31 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                             .addComponent(jlTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jcbAño, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE)
+                                    .addComponent(jcbAutor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jrbAño)
+                                    .addComponent(jrbAutor))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcbTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcbEditorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jrbEditorial)
+                                    .addComponent(jrbTipo)))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 86, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jtfNombre)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jrbAño)
-                                                .addGap(10, 10, 10))
-                                            .addComponent(jrbAutor)
-                                            .addComponent(jrbNombre))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jcbTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jrbEditorial)
-                                            .addComponent(jrbTipo)))
-                                    .addComponent(jbBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jrbNombre)))
+                                .addGap(18, 18, 18)))))
                 .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
@@ -184,38 +184,81 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jrbEditorial))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
-                                .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jrbTipo))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jrbAutor)
                         .addGap(18, 18, 18)
-                        .addComponent(jrbAño)
-                        .addGap(19, 19, 19)
-                        .addComponent(jrbNombre)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jrbAño)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jrbNombre))
+                .addGap(4, 4, 4)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public JComboBox getJcbAutor(){
+        return jcbAutor;
+    }
+    
+    public JComboBox getJcbAño(){
+        return jcbAño;
+    }
+    
+    public JComboBox getJcbEditorial(){
+        return jcbEditorial;
+    }
+    
+    public JComboBox getJcbTipo(){
+        return jcbTipo;
+    }
+    
+    public JTextField getJtfNombre(){
+        return jtfNombre;
+    }
+    
+    public JRadioButton getJrbAutor(){
+        return jrbAutor;
+    }
+    
+    public JRadioButton getJrbAño(){
+        return jrbAño;
+    }
+    
+    public JRadioButton getJrbEditorial(){
+        return jrbEditorial;
+    }
+    
+    public JRadioButton getJrbNombre(){
+        return jrbNombre;
+    }
+    
+    public JRadioButton getJrbTipo(){
+        return jrbTipo;
+    }
+    
+    public JButton getJbBorrar(){
+        return jbBorrar;
+    }
+    
+    public JTable getJtListado() {
+        return jtListado;
+    }
     private void jrbAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAutorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbAutorActionPerformed
@@ -235,14 +278,12 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbBorrar;
-    private javax.swing.JButton jbBuscar;
+    private javax.swing.JComboBox<String> jcbAutor;
+    private javax.swing.JComboBox<String> jcbAño;
+    private javax.swing.JComboBox<String> jcbEditorial;
     private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JRadioButton jrbAutor;
@@ -250,6 +291,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbEditorial;
     private javax.swing.JRadioButton jrbNombre;
     private javax.swing.JRadioButton jrbTipo;
+    private javax.swing.JTable jtListado;
     private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
 }

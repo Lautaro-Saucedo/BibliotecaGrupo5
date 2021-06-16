@@ -5,6 +5,10 @@
  */
 package bibliotecagrupo5.vistas;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
@@ -40,7 +44,7 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
         jtfEditorial = new javax.swing.JTextField();
         jtfAño = new javax.swing.JTextField();
         jcbAutores = new javax.swing.JComboBox<>();
-        jbGuardar = new javax.swing.JButton();
+        jbIngresar = new javax.swing.JButton();
         jcbTipo = new javax.swing.JComboBox<>();
         jbLimpiar = new javax.swing.JButton();
 
@@ -74,11 +78,11 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
         jcbAutores.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jcbAutores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jbGuardar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jbGuardar.setText("Guardar");
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jbIngresar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jbIngresar.setText("Ingresar");
+        jbIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
+                jbIngresarActionPerformed(evt);
             }
         });
 
@@ -101,7 +105,7 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -162,17 +166,47 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
                     .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar)
+                    .addComponent(jbIngresar)
                     .addComponent(jbLimpiar))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public JTextField getJtfIsbn() {
+        return jtfIsbn;
+    }
+    
+    public JComboBox getJcbAutores(){
+        return jcbAutores;
+    }
+    
+    public JTextField getJtfNombre() {
+        return jtfNombre;
+    }
+    
+    public JTextField getJtfEditorial() {
+        return jtfEditorial;
+    }
+    
+    public JTextField getJtfAño() {
+        return jtfAño;
+    }
+    
+    public JComboBox getJcbTipo(){
+        return jcbTipo;
+    }
+    
+    public JButton getJbIngresar() {
+        return jbIngresar;
+    }
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+    public JButton getJbLimpiar() {
+        return jbLimpiar;
+    }
+    private void jbIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbGuardarActionPerformed
+    }//GEN-LAST:event_jbIngresarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         // TODO add your handling code here:
@@ -181,7 +215,7 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbIngresar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JComboBox<String> jcbAutores;
     private javax.swing.JComboBox<String> jcbTipo;
