@@ -2,7 +2,7 @@ package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Prestamo;
-import bibliotecagrupo5.vistas.viewPrestamos;
+import bibliotecagrupo5.vistas.viewListarPrestamos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -19,44 +19,47 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Laucha
  */
-public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
+public class ctrlListarPrestamos implements ActionListener, PropertyChangeListener {
 
-    private viewPrestamos vp;
+    private viewListarPrestamos vlp;
     private PrestamoData pd;
     private LectorData ld;
     DefaultTableModel tabla;
     private HashMap<Object, Integer> fuente = new HashMap<>();
     private List<Prestamo> listaActual = new ArrayList<>();
 
-    public ctrlPrestamos(viewPrestamos vp, PrestamoData pd, LectorData ld) {
-        this.vp = vp;
+    public ctrlListarPrestamos(viewListarPrestamos vlp, PrestamoData pd, LectorData ld) {
+        this.vlp = vlp;
         this.pd = pd;
         this.ld = ld;
-        tabla = (DefaultTableModel) vp.getJtPrestamos().getModel();
+        tabla = (DefaultTableModel) vlp.getJtPrestamos().getModel();
 
-        vp.getJdcFecha().addPropertyChangeListener(this);
+        vlp.getJdcFecha().addPropertyChangeListener(this);
 
-        vp.getJcbLectores().addActionListener(this);
-        vp.getJcbListas().addActionListener(this);
-        vp.getJbRegD().addActionListener(this);
-        vp.getJbEliminar().addActionListener(this);
-        vp.getJrbEstado().addActionListener(this);
-        vp.getJrbFecha().addActionListener(this);
-        vp.getJrbLector().addActionListener(this);
+        vlp.getJcbLectores().addActionListener(this);
+        vlp.getJcbListas().addActionListener(this);
+        vlp.getJbRegD().addActionListener(this);
+        vlp.getJbEliminar().addActionListener(this);
+        vlp.getJrbEstado().addActionListener(this);
+        vlp.getJrbFecha().addActionListener(this);
+        vlp.getJrbLector().addActionListener(this);
 
-        fuente.put(vp.getJbRegD(), 1);
-        fuente.put(vp.getJbEliminar(), 2);
-        fuente.put(vp.getJcbLectores(), 3);
-        fuente.put(vp.getJcbListas(), 4);
-        fuente.put(vp.getJrbLector(), 5);
-        fuente.put(vp.getJrbEstado(), 6);
-        fuente.put(vp.getJrbFecha(), 7);
+        fuente.put(vlp.getJbRegD(), 1);
+        fuente.put(vlp.getJbEliminar(), 2);
+        fuente.put(vlp.getJcbLectores(), 3);
+        fuente.put(vlp.getJcbListas(), 4);
+        fuente.put(vlp.getJrbLector(), 5);
+        fuente.put(vlp.getJrbEstado(), 6);
+        fuente.put(vlp.getJrbFecha(), 7);
 
         for (Lector l : ld.listarLectores()) {
-            vp.getJcbLectores().addItem(l);
+            if (pd.prestamosActuales(l)!=0){
+                vlp.getJcbLectores().addItem(l);
+            }
         }
         
-        vp.getJcbListas().setSelectedIndex(0);
+        vlp.getJcbListas().setSelectedIndex(2);
+        vlp.getJrbEstado().setSelected(true);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
                         Prestamo p = pd.buscar((int)vfa(0));
                         pd.registrarDevolucion(p);
                         tabla.removeRow(gsr());
-                        vp.getJtPrestamos().setModel(tabla);
+                        vlp.getJtPrestamos().setModel(tabla);
                     }
                 }
                 break;
@@ -79,19 +82,19 @@ public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
                         Prestamo p = pd.buscar((int)vfa(0));
                         pd.eliminarPrestamo(p);
                         tabla.removeRow(gsr());
-                        vp.getJtPrestamos().setModel(tabla);
+                        vlp.getJtPrestamos().setModel(tabla);
                     }
                 }
                 break;
             }
             case 3: {
-                listaActual = pd.listarPrestamos((Lector) vp.getJcbLectores().getSelectedItem());
+                listaActual = pd.listarPrestamos((Lector) vlp.getJcbLectores().getSelectedItem());
                 borrarTabla();
                 llenarTabla();
                 break;
             }
             case 4: {
-                switch ((String) vp.getJcbListas().getSelectedItem()) {
+                switch ((String) vlp.getJcbListas().getSelectedItem()) {
                     case "Vigentes": {
                         listaActual = pd.listarSinRetrasos();
                         borrarTabla();
@@ -114,24 +117,24 @@ public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
                 break;
             }
             case 5: {
-                vp.getJcbLectores().setEnabled(true);
-                vp.getJcbListas().setEnabled(false);
-                vp.getJdcFecha().setEnabled(false);
-                vp.getJcbLectores().setSelectedIndex(vp.getJcbLectores().getSelectedIndex());
+                vlp.getJcbLectores().setEnabled(true);
+                vlp.getJcbListas().setEnabled(false);
+                vlp.getJdcFecha().setEnabled(false);
+                vlp.getJcbLectores().setSelectedIndex(vlp.getJcbLectores().getSelectedIndex());
                 break;
             }
             case 6: {
-                vp.getJcbLectores().setEnabled(false);
-                vp.getJcbListas().setEnabled(true);
-                vp.getJdcFecha().setEnabled(false);
-                vp.getJcbListas().setSelectedIndex(vp.getJcbListas().getSelectedIndex());
+                vlp.getJcbLectores().setEnabled(false);
+                vlp.getJcbListas().setEnabled(true);
+                vlp.getJdcFecha().setEnabled(false);
+                vlp.getJcbListas().setSelectedIndex(vlp.getJcbListas().getSelectedIndex());
                 break;
             }
             case 7: {
-                vp.getJcbLectores().setEnabled(false);
-                vp.getJcbListas().setEnabled(false);
-                vp.getJdcFecha().setEnabled(true);
-                vp.getJdcFecha().setDate(vp.getJdcFecha().getDate());
+                vlp.getJcbLectores().setEnabled(false);
+                vlp.getJcbListas().setEnabled(false);
+                vlp.getJdcFecha().setEnabled(true);
+                vlp.getJdcFecha().setDate(vlp.getJdcFecha().getDate());
                 break;
             }
         }
@@ -139,8 +142,8 @@ public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (vp.getJdcFecha().getDate() != null) {
-            LocalDate fecha = vp.getJdcFecha().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (vlp.getJdcFecha().getDate() != null) {
+            LocalDate fecha = vlp.getJdcFecha().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             listaActual = pd.listarPrestamos(fecha);
             borrarTabla();
             llenarTabla();
@@ -175,17 +178,17 @@ public class ctrlPrestamos implements ActionListener, PropertyChangeListener {
     }
     
     private Object vfa(int columna) {
-        return vp.getJtPrestamos().getValueAt(gsr(), columna);
+        return vlp.getJtPrestamos().getValueAt(gsr(), columna);
     }
 
     //get selected row
     private int gsr() {
-        return vp.getJtPrestamos().getSelectedRow();
+        return vlp.getJtPrestamos().getSelectedRow();
     }
 
     //get selected column
     private int gsc() {
-        return vp.getJtPrestamos().getSelectedColumn();
+        return vlp.getJtPrestamos().getSelectedColumn();
     }
 
 }

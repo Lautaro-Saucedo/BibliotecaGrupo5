@@ -11,7 +11,8 @@ import bibliotecagrupo5.controlador.LectorData;
 import bibliotecagrupo5.controlador.LibroData;
 import bibliotecagrupo5.controlador.MultaData;
 import bibliotecagrupo5.controlador.PrestamoData;
-import bibliotecagrupo5.controlador.ctrlPrestamos;
+import bibliotecagrupo5.controlador.ctrlAgregarPrestamo;
+import bibliotecagrupo5.controlador.ctrlListarPrestamos;
 
 /**
  *
@@ -54,6 +55,7 @@ public class viewMenu extends javax.swing.JFrame {
         jmLector = new javax.swing.JMenu();
         jmiIngresarLector = new javax.swing.JMenuItem();
         jmPrestamo = new javax.swing.JMenu();
+        jmiAgregarPrestamo = new javax.swing.JMenuItem();
         jmiListarPrestamos = new javax.swing.JMenuItem();
         jmMulta = new javax.swing.JMenu();
 
@@ -136,6 +138,14 @@ public class viewMenu extends javax.swing.JFrame {
         jmPrestamo.setText("Prestamo");
         jmPrestamo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiAgregarPrestamo.setText("Agregar Prestamo");
+        jmiAgregarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAgregarPrestamoActionPerformed(evt);
+            }
+        });
+        jmPrestamo.add(jmiAgregarPrestamo);
+
         jmiListarPrestamos.setText("Listar Prestamos");
         jmiListarPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,12 +187,21 @@ public class viewMenu extends javax.swing.JFrame {
     private void jmiListarPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarPrestamosActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        viewPrestamos vp = new viewPrestamos();
-        ctrlPrestamos ctrlP = new ctrlPrestamos(vp,pd,led);
+        viewListarPrestamos vp = new viewListarPrestamos();
+        ctrlListarPrestamos ctrlP = new ctrlListarPrestamos(vp,pd,led);
         escritorio.add(vp);
         vp.setVisible(true);
         
     }//GEN-LAST:event_jmiListarPrestamosActionPerformed
+
+    private void jmiAgregarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarPrestamoActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewAgregarPrestamo vap = new viewAgregarPrestamo();
+        ctrlAgregarPrestamo cap = new ctrlAgregarPrestamo(vap,pd,led,ed);
+        escritorio.add(vap);
+        vap.setVisible(true);
+    }//GEN-LAST:event_jmiAgregarPrestamoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +248,7 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jmLibro;
     private javax.swing.JMenu jmMulta;
     private javax.swing.JMenu jmPrestamo;
+    private javax.swing.JMenuItem jmiAgregarPrestamo;
     private javax.swing.JMenuItem jmiBuscarBorrar;
     private javax.swing.JMenuItem jmiBuscarLibro;
     private javax.swing.JMenuItem jmiIngrModifEjemplares;

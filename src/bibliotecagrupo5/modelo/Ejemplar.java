@@ -61,4 +61,11 @@ public class Ejemplar {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "N° "+id_ejemplar+": "+libro.getNombre();
+    }
+    
+    
+
 }

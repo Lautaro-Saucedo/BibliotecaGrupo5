@@ -224,7 +224,7 @@ public class PrestamoData {
 
     public int prestamosActuales(Lector l) {
         int aux = -1;
-        String query = "SELECT COUNT(*) FROM prestamo WHERE id_lector = ?";
+        String query = "SELECT COUNT(*) FROM prestamo WHERE id_lector = ? AND fecha_fin IS NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, l.getDni_lector());

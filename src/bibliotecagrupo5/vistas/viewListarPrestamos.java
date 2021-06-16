@@ -17,12 +17,12 @@ import javax.swing.JTable;
  *
  * @author Laucha
  */
-public class viewPrestamos extends javax.swing.JInternalFrame {
+public class viewListarPrestamos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form viewPrestamos
      */
-    public viewPrestamos() {
+    public viewListarPrestamos() {
         initComponents();
         JTextFieldDateEditor a = (JTextFieldDateEditor)jdcFecha.getDateEditor();
         a.setEditable(false);
@@ -87,6 +87,10 @@ public class viewPrestamos extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jtPrestamos);
         jtPrestamos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        jdcFecha.setEnabled(false);
+
+        jcbLectores.setEnabled(false);
+
         jcbListas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vigentes", "Retrasos", "Historial" }));
 
         Busqueda.add(jrbLector);
@@ -101,7 +105,6 @@ public class viewPrestamos extends javax.swing.JInternalFrame {
         jrbFecha.setText("Por Fecha");
 
         Busqueda.add(jrbEstado);
-        jrbEstado.setSelected(true);
         jrbEstado.setText("Estado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

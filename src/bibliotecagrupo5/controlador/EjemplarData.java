@@ -86,15 +86,14 @@ public class EjemplarData {
     public List<Ejemplar> listarEjemplares() {
         List<Ejemplar> ejemplares = new ArrayList<>();
         String query = "SELECT * FROM ejemplar";
+        LibroData ld = new LibroData();
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Ejemplar e = new Ejemplar();
-                Libro l = new Libro();
                 e.setId_ejemplar(rs.getInt("id_ejemplar"));
-                l.setIsbn(rs.getInt("id_libro"));
-                e.setLibro(l);
+                e.setLibro(ld.buscarLibro(rs.getInt("id_libro")));
                 e.setEstado(rs.getInt("estado"));
                 
                 ejemplares.add(e);
