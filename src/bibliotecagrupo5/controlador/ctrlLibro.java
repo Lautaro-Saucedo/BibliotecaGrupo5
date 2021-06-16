@@ -63,7 +63,6 @@ public class ctrlLibro implements ActionListener, TableModelListener{
                     } else {
                         Libro l = new Libro();
                         l.setIsbn(Integer.parseInt(vil.getJtfIsbn().getText()));
-                        //cambia el tipo del combobox, esta en string
                         l.setAutor((Autor)vil.getJcbAutores().getSelectedItem());
                         l.setNombre(vil.getJtfNombre().getText());
                         l.setEditorial(vil.getJtfEditorial().getText());
@@ -98,7 +97,7 @@ public class ctrlLibro implements ActionListener, TableModelListener{
 
     @Override
     public void tableChanged(TableModelEvent tme) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     //----------------------------------------------------

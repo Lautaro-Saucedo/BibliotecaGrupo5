@@ -26,6 +26,7 @@ public class ctrlAutor implements ActionListener, PropertyChangeListener{
         this.ad=ad;
         this.via=via;
         via.getJbIngresar().addActionListener(this);
+        via.getJbLimpiar().addActionListener(this);
         via.getJdcFecha().addPropertyChangeListener(this);
         fuente.put(via.getJbIngresar(), 1);
         fuente.put(via.getJdcFecha(), 2);
