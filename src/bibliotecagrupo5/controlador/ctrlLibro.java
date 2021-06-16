@@ -63,11 +63,12 @@ public class ctrlLibro implements ActionListener, TableModelListener{
                     } else {
                         Libro l = new Libro();
                         l.setIsbn(Integer.parseInt(vil.getJtfIsbn().getText()));
-                        l.setAutor(vil.getJcbAutores());
+                        //cambia el tipo del combobox, esta en string
+                        l.setAutor((Autor)vil.getJcbAutores().getSelectedItem());
                         l.setNombre(vil.getJtfNombre().getText());
                         l.setEditorial(vil.getJtfEditorial().getText());
                         l.setAño(Integer.parseInt(vil.getJtfAño().getText()));
-                        l.setTipo(vil.getJcbTipo());
+                        l.setTipo((String)vil.getJcbTipo().getSelectedItem());
                         ld.ingresarLibro(l);
                     }
                 } catch (NumberFormatException nfe) {
@@ -84,15 +85,11 @@ public class ctrlLibro implements ActionListener, TableModelListener{
             }
             //--------------------viewBuscarLibro--------------------------
             case 3: {
-                try {
-                    if (gsr() != -1 && gsc() != -1) {
-                        Integer isbn = (Integer) vfa(0);
-                        ld.eliminarLibro(isbn);
-                        model.removeRow(gsr());
-                        vbl.getJtListado().setModel(model);
-                    }
-                } catch (SQLException sqle) {
-                    JOptionPane.showMessageDialog(vbl, "Error al eliminar Libro.\nAsegúrese de que no tenga Ejemplares antes de intentar eliminarlo permanentemente.");
+                if (gsr() != -1 && gsc() != -1) {
+                    Integer isbn = (Integer) vfa(0);
+                    ld.eliminarLibro(isbn);
+                    model.removeRow(gsr());
+                    vbl.getJtListado().setModel(model);
                 }
                 break;
             }
@@ -133,8 +130,9 @@ public class ctrlLibro implements ActionListener, TableModelListener{
     }
 
     private void llenarLista() {
+        //revisa como se ingresan estos datos, lo deje asi para que compile nomas
         for (Libro a : lista) {
-            model.addRow(new Object[]{a.getIsbn(), a.getNombre(), a.getApellido(), a.getFecha_nac(), a.isEstado()});
+            model.addRow(new Object[]{a.getIsbn(), a.getAutor(), a.getNombre(), a.getEditorial(), a.getAño(),a.getTipo()});
         }
         vbl.getJtListado().setModel(model);
     }

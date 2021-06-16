@@ -302,12 +302,16 @@ public class PrestamoData {
     }
 
     public void eliminarPrestamo(Prestamo p) {
+        MultaData md = new MultaData();
         String query = "DELETE FROM prestamo WHERE id_prestamo=?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, p.getId_prestamo());
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Eliminado con exito.");
+                if (p.getMulta()!=null){
+                    md.eliminarMulta(p.getMulta());
+                }
             }
             ps.close();
         } catch (SQLException sqle) {

@@ -29,6 +29,5 @@ public class BibliotecaGrupo5 {
         MultaData md = new MultaData();
         PrestamoData pd = new PrestamoData();
         
-        //pd.generarMultas();
     }
 }

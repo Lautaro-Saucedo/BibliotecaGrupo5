@@ -52,7 +52,7 @@ public class Lector {
 
     @Override
     public String toString() {
-        return "DNI: " + dni_lector + "\nNombre: " + nombre_lector + "\nApellido: " + apellido_lector + "\nEstado: " + estado_lector + "\n";
+        return nombre_lector + " " + apellido_lector;
     }
 
     @Override

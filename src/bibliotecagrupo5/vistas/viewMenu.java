@@ -11,6 +11,7 @@ import bibliotecagrupo5.controlador.LectorData;
 import bibliotecagrupo5.controlador.LibroData;
 import bibliotecagrupo5.controlador.MultaData;
 import bibliotecagrupo5.controlador.PrestamoData;
+import bibliotecagrupo5.controlador.ctrlPrestamos;
 
 /**
  *
@@ -174,7 +175,12 @@ public class viewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmEjemplarActionPerformed
 
     private void jmiListarPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarPrestamosActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
         viewPrestamos vp = new viewPrestamos();
+        ctrlPrestamos ctrlP = new ctrlPrestamos(vp,pd,led);
+        escritorio.add(vp);
+        vp.setVisible(true);
         
     }//GEN-LAST:event_jmiListarPrestamosActionPerformed
 
