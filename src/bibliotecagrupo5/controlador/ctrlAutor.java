@@ -1,4 +1,3 @@
-
 package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Autor;
@@ -57,12 +56,13 @@ public class ctrlAutor implements ActionListener, PropertyChangeListener{
                 break;
             }
         case 3: {
-            via.getJtfDni().setText("");
-            via.getJtfNombre().setText("");
-            via.getJtfApellido().setText("");
-            via.getJtfFecha().setText("");
-            via.getJtfNacionalidad().setText("");
-        }
+                via.getJtfDni().setText("");
+                via.getJtfNombre().setText("");
+                via.getJtfApellido().setText("");
+                via.getJtfFecha().setText("");
+                via.getJtfNacionalidad().setText("");
+                break;
+            }
         }
     }
 
@@ -76,5 +76,4 @@ public class ctrlAutor implements ActionListener, PropertyChangeListener{
             }
         }
     }
-
 }

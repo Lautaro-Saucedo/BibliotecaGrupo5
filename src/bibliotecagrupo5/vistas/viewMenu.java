@@ -12,7 +12,11 @@ import bibliotecagrupo5.controlador.LibroData;
 import bibliotecagrupo5.controlador.MultaData;
 import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.controlador.ctrlAgregarPrestamo;
+import bibliotecagrupo5.controlador.ctrlAutor;
+import bibliotecagrupo5.controlador.ctrlLibro;
 import bibliotecagrupo5.controlador.ctrlListarPrestamos;
+import java.awt.Component;
+import javax.swing.JFrame;
 
 /**
  *
@@ -30,6 +34,7 @@ public class viewMenu extends javax.swing.JFrame {
      */
     public viewMenu() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -89,6 +94,11 @@ public class viewMenu extends javax.swing.JFrame {
         jmAutor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         jmiIngresarAutor.setText("Ingresar Autor");
+        jmiIngresarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiIngresarAutorActionPerformed(evt);
+            }
+        });
         jmAutor.add(jmiIngresarAutor);
 
         jMenuBar1.add(jmAutor);
@@ -98,6 +108,11 @@ public class viewMenu extends javax.swing.JFrame {
 
         jmiIngresarLibro.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiIngresarLibro.setText("Ingresar Libro");
+        jmiIngresarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiIngresarLibroActionPerformed(evt);
+            }
+        });
         jmLibro.add(jmiIngresarLibro);
 
         jmiBuscarLibro.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -177,7 +192,12 @@ public class viewMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiBuscarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarLibroActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewBuscarLibro vbl = new viewBuscarLibro();
+        ctrlLibro ctrlL = new ctrlLibro(vbl,lid);
+        escritorio.add(vbl);
+        vbl.setVisible(true);
     }//GEN-LAST:event_jmiBuscarLibroActionPerformed
 
     private void jmEjemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEjemplarActionPerformed
@@ -190,7 +210,7 @@ public class viewMenu extends javax.swing.JFrame {
         viewListarPrestamos vp = new viewListarPrestamos();
         ctrlListarPrestamos ctrlP = new ctrlListarPrestamos(vp,pd,led);
         escritorio.add(vp);
-        vp.setVisible(true);
+        vp.setVisible(true); 
         
     }//GEN-LAST:event_jmiListarPrestamosActionPerformed
 
@@ -202,6 +222,24 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vap);
         vap.setVisible(true);
     }//GEN-LAST:event_jmiAgregarPrestamoActionPerformed
+
+    private void jmiIngresarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiIngresarAutorActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewIngresarAutor via = new viewIngresarAutor();
+        ctrlAutor ctrlA = new ctrlAutor(via,ad);
+        escritorio.add(via);
+        via.setVisible(true);
+    }//GEN-LAST:event_jmiIngresarAutorActionPerformed
+
+    private void jmiIngresarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiIngresarLibroActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewIngresarLibro vil = new viewIngresarLibro();
+        ctrlLibro ctrlL = new ctrlLibro(vil,lid);
+        escritorio.add(vil);
+        vil.setVisible(true);
+    }//GEN-LAST:event_jmiIngresarLibroActionPerformed
 
     /**
      * @param args the command line arguments

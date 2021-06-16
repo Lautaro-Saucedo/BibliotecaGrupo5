@@ -5,6 +5,7 @@
  */
 package bibliotecagrupo5.vistas;
 
+import bibliotecagrupo5.modelo.Autor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -43,10 +44,10 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
         jtfNombre = new javax.swing.JTextField();
         jtfEditorial = new javax.swing.JTextField();
         jtfAño = new javax.swing.JTextField();
-        jcbAutores = new javax.swing.JComboBox<>();
         jbIngresar = new javax.swing.JButton();
         jcbTipo = new javax.swing.JComboBox<>();
         jbLimpiar = new javax.swing.JButton();
+        jcbAutores = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -75,9 +76,6 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
         jlTipo.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jlTipo.setText("Tipo:");
 
-        jcbAutores.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jcbAutores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jbIngresar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jbIngresar.setText("Ingresar");
         jbIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +85,6 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
         });
 
         jcbTipo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jbLimpiar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jbLimpiar.setText("Limpiar");
@@ -96,6 +93,8 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
                 jbLimpiarActionPerformed(evt);
             }
         });
+
+        jcbAutores.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,15 +123,18 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
                         .addComponent(jlEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtfEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbAutores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jlIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jlIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcbAutores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtfIsbn, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -168,7 +170,7 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbIngresar)
                     .addComponent(jbLimpiar))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,7 +219,7 @@ public class viewIngresarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbIngresar;
     private javax.swing.JButton jbLimpiar;
-    private javax.swing.JComboBox<String> jcbAutores;
+    private javax.swing.JComboBox<Autor> jcbAutores;
     private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JLabel jlAutor;
     private javax.swing.JLabel jlAño;
