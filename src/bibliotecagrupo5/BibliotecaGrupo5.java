@@ -28,6 +28,5 @@ public class BibliotecaGrupo5 {
         LibroData libd = new LibroData();
         MultaData md = new MultaData();
         PrestamoData pd = new PrestamoData();
-        
     }
 }

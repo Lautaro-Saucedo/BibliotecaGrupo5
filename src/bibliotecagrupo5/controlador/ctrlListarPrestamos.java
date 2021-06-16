@@ -176,7 +176,7 @@ public class ctrlListarPrestamos implements ActionListener, PropertyChangeListen
             tabla.removeRow(i);
         }
     }
-    
+    //valor fila actual
     private Object vfa(int columna) {
         return vlp.getJtPrestamos().getValueAt(gsr(), columna);
     }

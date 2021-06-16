@@ -82,10 +82,8 @@ public class viewListarPrestamos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtPrestamos.setColumnSelectionAllowed(true);
         jtPrestamos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jtPrestamos);
-        jtPrestamos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jdcFecha.setEnabled(false);
 

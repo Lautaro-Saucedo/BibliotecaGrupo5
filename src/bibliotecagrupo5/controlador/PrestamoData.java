@@ -96,6 +96,38 @@ public class PrestamoData {
         }
         return p;
     }
+    
+    public Prestamo buscar(Multa m) {
+        String query = "SELECT * FROM prestamo WHERE id_multa=?";
+        Prestamo p = null;
+        EjemplarData ed = new EjemplarData();
+        LectorData ld = new LectorData();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, m.getId_multa());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                p = new Prestamo();
+                p.setId_prestamo(rs.getInt(1));
+                p.setLector(ld.buscarLector(rs.getInt(2)));
+                p.setMulta(m);
+                p.setEjemplar(ed.buscarEjemplar(rs.getInt(4)));
+                p.setFecha_inicio(rs.getDate(5).toLocalDate());
+                if (rs.getDate(6) != null) {
+                    p.setFecha_fin(rs.getDate(6).toLocalDate());
+                } else {
+                    p.setFecha_fin(null);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
+    }
 
     public List<Prestamo> listarPrestamos() {
         List<Prestamo> lista = new ArrayList<>();
@@ -179,7 +211,7 @@ public class PrestamoData {
 
     public List<Lector> lectoresMultados() {
         List<Lector> lista = new ArrayList<>();
-        String query = "SELECT lector.* FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL";
+        String query = "SELECT lector.* FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL GROUP BY lector.dni_lector";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             llenarlistaL(ps.executeQuery(), lista);
@@ -192,7 +224,7 @@ public class PrestamoData {
 
     public List<Lector> lectoresMultados(int mes) {
         List<Lector> lista = new ArrayList<>();
-        String query = "SELECT lector.* FROM lector,prestamo WHERE dni_lector=id_lector AND id_multa IS NOT NULL AND MONTH(fecha_inicio) = ?";
+        String query = "SELECT lector.* FROM lector,prestamo,multa WHERE dni_lector=id_lector AND prestamo.id_multa IS NOT NULL AND MONTH(multa.fecha_inicio) = ? GROUP BY lector.dni_lector";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, mes);
