@@ -14,7 +14,7 @@ import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.controlador.ctrlAgregarPrestamo;
 
 import bibliotecagrupo5.controlador.ctrlAutor;
-import bibliotecagrupo5.controlador.ctrlLibro;
+import bibliotecagrupo5.controlador.ctrlIngresarLibro;
 
 import bibliotecagrupo5.controlador.ctrlListarMultas;
 
@@ -209,7 +209,6 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewBuscarLibro vbl = new viewBuscarLibro();
-        ctrlLibro ctrlL = new ctrlLibro(vbl,lid);
         escritorio.add(vbl);
         vbl.setVisible(true);
     }//GEN-LAST:event_jmiBuscarLibroActionPerformed
@@ -251,7 +250,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewIngresarLibro vil = new viewIngresarLibro();
-        ctrlLibro ctrlL = new ctrlLibro(vil,lid);
+        ctrlIngresarLibro ctrlL = new ctrlIngresarLibro(vil,lid,ad);
         escritorio.add(vil);
         vil.setVisible(true);
     }//GEN-LAST:event_jmiIngresarLibroActionPerformed
