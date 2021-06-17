@@ -4,6 +4,7 @@ package bibliotecagrupo5.controlador;
 import bibliotecagrupo5.modelo.Conexion;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Multa;
+import bibliotecagrupo5.modelo.Prestamo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,10 +65,17 @@ public class LectorData {
     }
     
     public void borrarLectorFisico(int dni){
-         String query = "DELETE FROM lector WHERE dni_lector=?";
+        PrestamoData pd = new PrestamoData();
+        String query = "DELETE FROM lector WHERE dni_lector=?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, dni);
+            
+            Lector l = new Lector();
+            l.setDni_lector(dni);
+            for (Prestamo p:pd.listarDevoluciones(l)){
+                pd.eliminarPrestamo(p);
+            }
 
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Borrado exitosamente");

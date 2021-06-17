@@ -66,6 +66,29 @@ public class Autor {
     public String toString() {
         return nombre_autor + " " + apellido_autor;
     }
+
+    @Override
+    public int hashCode() {
+        return dni_autor;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autor other = (Autor) obj;
+        if (this.dni_autor != other.dni_autor) {
+            return false;
+        }
+        return true;
+    }
     
     
     

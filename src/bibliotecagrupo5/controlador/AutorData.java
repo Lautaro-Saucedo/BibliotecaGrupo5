@@ -62,7 +62,8 @@ public class AutorData {
         return autores;
     }
 
-    public void borrarAutorFisico(int dni) {
+    public boolean borrarAutorFisico(int dni) {
+        boolean retorno=true;
         String query = "DELETE FROM autor WHERE dni_autor=?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -70,13 +71,16 @@ public class AutorData {
 
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Borrado exitosamente");
+                retorno= true;
             } else {
                 JOptionPane.showMessageDialog(null, "El autor que se desea borrar no existe");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al borrar autor, el autor tiene libros publicados");
+            retorno= false;
         }
+        return retorno;
     }
 
     public void actualizarAutor(Autor a) {

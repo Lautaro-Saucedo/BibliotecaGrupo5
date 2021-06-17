@@ -16,12 +16,12 @@ import javax.swing.JTextField;
  *
  * @author @LXWeber Leandro Xavier Weber
  */
-public class viewBuscarLibro extends javax.swing.JInternalFrame {
+public class viewListarLibros extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form viewBuscarLibro
      */
-    public viewBuscarLibro() {
+    public viewListarLibros() {
         initComponents();
     }
 
@@ -42,7 +42,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
         jrbEditorial = new javax.swing.JRadioButton();
         jcbEditorial = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtListado = new javax.swing.JTable();
+        jtLibros = new javax.swing.JTable();
         jlTitulo = new javax.swing.JLabel();
         jcbTipo = new javax.swing.JComboBox<>();
         jrbTipo = new javax.swing.JRadioButton();
@@ -90,23 +90,36 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
 
         jcbEditorial.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        jtListado.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jtListado.setModel(new javax.swing.table.DefaultTableModel(
+        jtLibros.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jtLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ISBN", "Autor", "Titulo", "Editorial", "Año", "Tipo", "Ejemplares"
             }
-        ));
-        jScrollPane1.setViewportView(jtListado);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtLibros.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jtLibros);
 
         jlTitulo.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
         jlTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlTitulo.setText("Buscar Libro");
+        jlTitulo.setText("Libros");
 
         jcbTipo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
@@ -145,7 +158,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
                             .addComponent(jlTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -262,7 +275,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
     }
     
     public JTable getJtListado() {
-        return jtListado;
+        return jtLibros;
     }
     private void jrbAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAutorActionPerformed
         // TODO add your handling code here:
@@ -297,7 +310,7 @@ public class viewBuscarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbEditorial;
     private javax.swing.JRadioButton jrbNombre;
     private javax.swing.JRadioButton jrbTipo;
-    private javax.swing.JTable jtListado;
+    private javax.swing.JTable jtLibros;
     private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
 }

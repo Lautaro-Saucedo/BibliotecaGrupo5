@@ -54,15 +54,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiIngresarLibroActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarLibro">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiListarLibros">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Buscar Libro"/>
+                <Property name="text" type="java.lang.String" value="Listar Libros"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarLibroActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiListarLibrosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -78,15 +78,21 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmEjemplarActionPerformed"/>
           </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiIngrModifEjemplares">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiIngresarEjemplares">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ingresar / Modificar"/>
+                <Property name="text" type="java.lang.String" value="Ingresar Ejemplares"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiIngresarEjemplaresActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarBorrar">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiListarEjemplares">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar / Borrar"/>
+                <Property name="text" type="java.lang.String" value="Listar Ejemplares"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiListarEjemplaresActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -102,6 +108,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ingresar Lector"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiIngresarLectorActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="kmiListarLectores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Lectores"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kmiListarLectoresActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -113,12 +130,12 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiAgregarPrestamo">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiIngresarPrestamo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Prestamo"/>
+                <Property name="text" type="java.lang.String" value="Ingresar Prestamo"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAgregarPrestamoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiIngresarPrestamoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListarPrestamos">

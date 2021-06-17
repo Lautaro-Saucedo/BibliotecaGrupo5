@@ -1,6 +1,7 @@
 package bibliotecagrupo5.controlador;
 
 import bibliotecagrupo5.modelo.Conexion;
+import bibliotecagrupo5.modelo.Ejemplar;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Multa;
 import bibliotecagrupo5.modelo.Prestamo;
@@ -169,12 +170,40 @@ public class PrestamoData {
         }
         return lista;
     }
+    
+    public List<Prestamo> listarPrestamos(Ejemplar e) {
+        List<Prestamo> lista = new ArrayList<>();
+        String query = "SELECT * FROM prestamo WHERE id_ejemplar = ? AND fecha_fin IS NOT NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, e.getId_ejemplar());
+            llenarlistaP(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 
     public List<Prestamo> listarDevoluciones() {
         List<Prestamo> lista = new ArrayList<>();
         String query = "SELECT * FROM prestamo WHERE fecha_fin IS NOT NULL";
         try {
             PreparedStatement ps = con.prepareStatement(query);
+            llenarlistaP(ps.executeQuery(), lista);
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+    public List<Prestamo> listarDevoluciones(Lector l) {
+        List<Prestamo> lista = new ArrayList<>();
+        String query = "SELECT * FROM prestamo WHERE fecha_fin IS NOT NULL AND id_lector=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, l.getDni_lector());
             llenarlistaP(ps.executeQuery(), lista);
             ps.close();
         } catch (SQLException ex) {

@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
 
 
 /* @author @LXWeber Leandro Xavier Weber */
-public class ctrlAutor implements ActionListener {
+public class ctrlIngresarAutor implements ActionListener {
 
     private viewIngresarAutor via;
     private AutorData ad;
     private HashMap<Object, Integer> fuente = new HashMap<>();
 
-    public ctrlAutor(viewIngresarAutor via, AutorData ad) {
+    public ctrlIngresarAutor(viewIngresarAutor via, AutorData ad) {
         this.ad = ad;
         this.via = via;
         via.getJbIngresar().addActionListener(this);

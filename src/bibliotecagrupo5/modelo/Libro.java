@@ -69,5 +69,12 @@ public class Libro {
     public String getTipo() {
         return tipo;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
     
 }

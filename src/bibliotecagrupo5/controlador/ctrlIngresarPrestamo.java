@@ -3,7 +3,7 @@ package bibliotecagrupo5.controlador;
 import bibliotecagrupo5.modelo.Ejemplar;
 import bibliotecagrupo5.modelo.Lector;
 import bibliotecagrupo5.modelo.Prestamo;
-import bibliotecagrupo5.vistas.viewAgregarPrestamo;
+import bibliotecagrupo5.vistas.viewIngresarPrestamo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.ZoneId;
@@ -13,14 +13,14 @@ import java.util.Date;
  *
  * @author Laucha
  */
-public class ctrlAgregarPrestamo implements ActionListener{
+public class ctrlIngresarPrestamo implements ActionListener{
 
-    private viewAgregarPrestamo vap;
+    private viewIngresarPrestamo vap;
     private PrestamoData pd;
     private LectorData ld;
     private EjemplarData ed;
 
-    public ctrlAgregarPrestamo(viewAgregarPrestamo vap, PrestamoData pd, LectorData ld, EjemplarData ed) {
+    public ctrlIngresarPrestamo(viewIngresarPrestamo vap, PrestamoData pd, LectorData ld, EjemplarData ed) {
         this.vap = vap;
         this.pd = pd;
         this.ld = ld;

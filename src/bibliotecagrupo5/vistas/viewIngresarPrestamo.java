@@ -16,12 +16,12 @@ import javax.swing.JComboBox;
  *
  * @author Laucha
  */
-public class viewAgregarPrestamo extends javax.swing.JInternalFrame {
+public class viewIngresarPrestamo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form viewAgregarPrestamo
      */
-    public viewAgregarPrestamo() {
+    public viewIngresarPrestamo() {
         initComponents();
         JTextFieldDateEditor a = (JTextFieldDateEditor)jdcFecha.getDateEditor();
         a.setEditable(false);
