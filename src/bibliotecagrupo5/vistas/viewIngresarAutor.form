@@ -31,13 +31,6 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jbLimpiar" min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jlFechaNac" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jtfFechaNac" min="-2" pref="121" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jdcFecha" min="-2" pref="54" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jlNacionalidad" min="-2" pref="154" max="-2" attributes="0"/>
@@ -52,9 +45,11 @@
                               <Component id="jlNombre" pref="154" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jlApellido" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                          <Component id="jlFechaNac" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jdcFecha" max="32767" attributes="0"/>
                           <Component id="jtfApellido" max="32767" attributes="0"/>
                           <Component id="jtfNombre" max="32767" attributes="0"/>
                           <Component id="jtfDni" max="32767" attributes="0"/>
@@ -87,10 +82,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jlFechaNac" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfFechaNac" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jlFechaNac" min="-2" max="-2" attributes="0"/>
                   <Component id="jdcFecha" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -136,11 +128,6 @@
     <Component class="javax.swing.JTextField" name="jtfDni">
     </Component>
     <Component class="javax.swing.JTextField" name="jtfApellido">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jtfFechaNac">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfFechaNacActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfNacionalidad">
     </Component>

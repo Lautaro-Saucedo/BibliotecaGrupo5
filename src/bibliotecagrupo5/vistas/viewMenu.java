@@ -14,12 +14,12 @@ import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.controlador.ctrlAgregarPrestamo;
 
 import bibliotecagrupo5.controlador.ctrlAutor;
+import bibliotecagrupo5.controlador.ctrlBuscarLibro;
 import bibliotecagrupo5.controlador.ctrlIngresarLibro;
 
 import bibliotecagrupo5.controlador.ctrlListarMultas;
 
 import bibliotecagrupo5.controlador.ctrlListarPrestamos;
-import java.awt.Component;
 import javax.swing.JFrame;
 
 /**
