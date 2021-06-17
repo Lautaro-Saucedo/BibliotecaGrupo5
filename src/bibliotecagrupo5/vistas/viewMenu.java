@@ -14,8 +14,8 @@ import bibliotecagrupo5.controlador.PrestamoData;
 import bibliotecagrupo5.controlador.ctrlAgregarPrestamo;
 
 import bibliotecagrupo5.controlador.ctrlAutor;
-import bibliotecagrupo5.controlador.ctrlBuscarLibro;
 import bibliotecagrupo5.controlador.ctrlIngresarLibro;
+import bibliotecagrupo5.controlador.ctrlListarAutores;
 
 import bibliotecagrupo5.controlador.ctrlListarMultas;
 
@@ -55,6 +55,7 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmAutor = new javax.swing.JMenu();
         jmiIngresarAutor = new javax.swing.JMenuItem();
+        jmiListarAutores = new javax.swing.JMenuItem();
         jmLibro = new javax.swing.JMenu();
         jmiIngresarLibro = new javax.swing.JMenuItem();
         jmiBuscarLibro = new javax.swing.JMenuItem();
@@ -105,6 +106,14 @@ public class viewMenu extends javax.swing.JFrame {
             }
         });
         jmAutor.add(jmiIngresarAutor);
+
+        jmiListarAutores.setText("Listar Autores");
+        jmiListarAutores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarAutoresActionPerformed(evt);
+            }
+        });
+        jmAutor.add(jmiListarAutores);
 
         jMenuBar1.add(jmAutor);
 
@@ -264,6 +273,15 @@ public class viewMenu extends javax.swing.JFrame {
         vlm.setVisible(true);
     }//GEN-LAST:event_jmiListarMultasActionPerformed
 
+    private void jmiListarAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarAutoresActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewListarAutores vla = new viewListarAutores();
+        ctrlListarAutores cla = new ctrlListarAutores(vla,ad);
+        escritorio.add(vla);
+        vla.setVisible(true);
+    }//GEN-LAST:event_jmiListarAutoresActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -317,6 +335,7 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiIngresarAutor;
     private javax.swing.JMenuItem jmiIngresarLector;
     private javax.swing.JMenuItem jmiIngresarLibro;
+    private javax.swing.JMenuItem jmiListarAutores;
     private javax.swing.JMenuItem jmiListarMultas;
     private javax.swing.JMenuItem jmiListarPrestamos;
     // End of variables declaration//GEN-END:variables

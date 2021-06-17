@@ -171,7 +171,7 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFecha">
       <Properties>
-        <Property name="dateFormatString" type="java.lang.String" value="yyyy-mm-dd"/>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbLimpiar">

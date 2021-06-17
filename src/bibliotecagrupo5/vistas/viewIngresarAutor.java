@@ -75,7 +75,7 @@ public class viewIngresarAutor extends javax.swing.JInternalFrame {
         jlNombre.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jlNombre.setText("Nombre:");
 
-        jdcFecha.setDateFormatString("yyyy-mm-dd");
+        jdcFecha.setDateFormatString("yyyy-MM-dd");
 
         jbLimpiar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jbLimpiar.setText("Limpiar");

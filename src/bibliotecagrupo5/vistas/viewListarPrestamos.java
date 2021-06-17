@@ -85,6 +85,7 @@ public class viewListarPrestamos extends javax.swing.JInternalFrame {
         jtPrestamos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jtPrestamos);
 
+        jdcFecha.setDateFormatString("dd-MM-yyyy");
         jdcFecha.setEnabled(false);
 
         jcbLectores.setEnabled(false);
