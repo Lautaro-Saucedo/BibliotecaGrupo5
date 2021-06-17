@@ -5,10 +5,13 @@ import bibliotecagrupo5.modelo.Libro;
 import bibliotecagrupo5.vistas.viewListarLibros;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -23,14 +26,16 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
     DefaultTableModel tabla;
 
     private HashMap<Object, Integer> fuente = new HashMap<>();
-    private List<Libro> libros;
+    private List<JComponent> rbuttons = new ArrayList<>();
+    private List<Libro> libros= new ArrayList<>();
 
     public ctrlListarLibros(viewListarLibros vll, LibroData ld, EjemplarData ed) {
         this.vll = vll;
         this.ld = ld;
         this.ed = ed;
+        libros = ld.listarLibros();
         tabla = (DefaultTableModel) vll.getJtListado().getModel();
-
+        
         tabla.addTableModelListener(this);
 
         vll.getJbBorrar().addActionListener(this);
@@ -58,10 +63,16 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
         fuente.put(vll.getJrbTipo(), 8);
         fuente.put(vll.getJrbNombre(), 9);
 
+        rbuttons.add(vll.getJcbAutor());
+        rbuttons.add(vll.getJcbAño());
+        rbuttons.add(vll.getJcbEditorial());
+        rbuttons.add(vll.getJcbTipo());
+        rbuttons.add(vll.getJtfNombre());
+
         fuente.put(vll.getJbBorrar(), 10);
         fuente.put(vll.getJbBuscar(), 11);
 
-        libros = ld.listarLibros();
+        
         vll.getJtListado().setAutoCreateRowSorter(true);
         cargarComboBox();
         llenarTabla();
@@ -72,94 +83,56 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
     public void actionPerformed(ActionEvent ae) {
         switch (fuente.get(ae.getSource())) {
             case 1: {//cb autor
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getAutor().equals(vll.getJcbAutor().getSelectedItem())).collect(Collectors.toList()));
+                filtros(1);
                 break;
             }
             case 2: {//cb año
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getAño() == (int) vll.getJcbAño().getSelectedItem()).collect(Collectors.toList()));
+                filtros(2);
                 break;
             }
             case 3: {//cb editorial
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getEditorial().equals(vll.getJcbEditorial().getSelectedItem())).collect(Collectors.toList()));
+                filtros(3);
                 break;
             }
             case 4: {//cb tipo
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getTipo().equals(vll.getJcbTipo().getSelectedItem())).collect(Collectors.toList()));
+                filtros(4);
                 break;
             }
-            case 5: {
-                vll.getJcbAutor().setEnabled(true);
-                vll.getJcbAño().setEnabled(false);
-                vll.getJcbEditorial().setEnabled(false);
-                vll.getJcbTipo().setEnabled(false);
-                vll.getJtfNombre().setEnabled(false);
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getAutor().equals(vll.getJcbAutor().getSelectedItem())).collect(Collectors.toList()));
+            case 5: {//rb autor
+                radiobuttons(0);
+                filtros(1);
                 break;
             }
-            case 6: {
-                vll.getJcbAutor().setEnabled(false);
-                vll.getJcbAño().setEnabled(true);
-                vll.getJcbEditorial().setEnabled(false);
-                vll.getJcbTipo().setEnabled(false);
-                vll.getJtfNombre().setEnabled(false);
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getAño() == (int) vll.getJcbAño().getSelectedItem()).collect(Collectors.toList()));
+            case 6: {//rb año
+                radiobuttons(1);
+                filtros(2);
                 break;
             }
-            case 7: {
-                vll.getJcbAutor().setEnabled(false);
-                vll.getJcbAño().setEnabled(false);
-                vll.getJcbEditorial().setEnabled(true);
-                vll.getJcbTipo().setEnabled(false);
-                vll.getJtfNombre().setEnabled(false);
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getEditorial().equals(vll.getJcbEditorial().getSelectedItem())).collect(Collectors.toList()));
+            case 7: {//rb editorial
+                radiobuttons(2);
+                filtros(3);
                 break;
             }
-            case 8: {
-                vll.getJcbAutor().setEnabled(false);
-                vll.getJcbAño().setEnabled(false);
-                vll.getJcbEditorial().setEnabled(false);
-                vll.getJcbTipo().setEnabled(true);
-                vll.getJtfNombre().setEnabled(false);
-                borrarTabla();
-                llenarTabla(libros.stream().filter(l -> l.getTipo().equals(vll.getJcbTipo().getSelectedItem())).collect(Collectors.toList()));
+            case 8: {//rb tipo
+                radiobuttons(3);
+                filtros(4);
                 break;
             }
-            case 9: {
-                vll.getJcbAutor().setEnabled(false);
-                vll.getJcbAño().setEnabled(false);
-                vll.getJcbEditorial().setEnabled(false);
-                vll.getJcbTipo().setEnabled(false);
-                vll.getJtfNombre().setEnabled(true);
-                borrarTabla();
-                llenarTabla(ld.obtenerLibrosXTitulo(vll.getJtfNombre().getText()));
+            case 9: {//rb titulo
+                radiobuttons(4);
+                filtros(5);
                 break;
             }
             case 10: {
-                if (gsr() != -1 && gsc() != -1) {
-                    if ((int) vfa(6) == 0) {
-                        Libro l = new Libro();
-                        l.setIsbn((int)vfa(0));
-                        libros.remove(l);
-                        ld.eliminarLibro((int) vfa(0));
-                        tabla.removeRow(gsr());
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se puede eliminar un libro con ejemplares registrados.");
-                    }
-                }
+                borrar();
                 break;
             }
             case 11: {
-                borrarTabla();
-                llenarTabla(ld.obtenerLibrosXTitulo(vll.getJtfNombre().getText()));
-
+                filtros(5);
+                break;
+            }
+            default:{
+                break;
             }
         }
     }
@@ -173,6 +146,57 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
             l.setAño((int) vfa(4));
             l.setTipo(vfa(5).toString());
             ld.actualizarLibro(l);
+        }
+    }
+
+    private void radiobuttons(int i) {
+        for (JComponent jc : rbuttons) {
+            if (jc.equals(rbuttons.get(i))) {
+                jc.setEnabled(true);
+            } else {
+                jc.setEnabled(false);
+            }
+        }
+    }
+
+    private void filtros(int i) {
+        borrarTabla();
+        switch (i) {
+            case 1: {
+                llenarTabla(libros.stream().filter(l -> l.getAutor().equals(vll.getJcbAutor().getSelectedItem())).collect(Collectors.toList()));
+                break;
+            }
+            case 2: {
+                llenarTabla(libros.stream().filter(l -> l.getAño() == (int) vll.getJcbAño().getSelectedItem()).collect(Collectors.toList()));
+                break;
+            }
+            case 3: {
+                llenarTabla(libros.stream().filter(l -> l.getEditorial().equals(vll.getJcbEditorial().getSelectedItem())).collect(Collectors.toList()));
+                break;
+            }
+            case 4: {
+                llenarTabla(libros.stream().filter(l -> l.getTipo().equals(vll.getJcbTipo().getSelectedItem())).collect(Collectors.toList()));
+                break;
+            }
+            case 5: {
+                llenarTabla(ld.obtenerLibrosXTitulo(vll.getJtfNombre().getText()));
+                break;
+            }
+        }
+    }
+
+    private void borrar() {
+        if (gsr() != -1 && gsc() != -1) {
+            if ((int) vfa(6) == 0) {
+                Libro l = new Libro();
+                l.setIsbn((int) vfa(0));
+                libros.remove(l);
+                ld.eliminarLibro((int) vfa(0));
+                tabla.removeRow(gsr());
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se puede eliminar un libro con ejemplares registrados.");
+            }
         }
     }
 
