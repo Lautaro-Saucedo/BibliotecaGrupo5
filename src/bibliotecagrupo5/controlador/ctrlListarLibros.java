@@ -31,7 +31,7 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
         this.ld = ld;
         this.ed = ed;
         tabla = (DefaultTableModel) vll.getJtListado().getModel();
-        
+
         tabla.addTableModelListener(this);
 
         vll.getJbBorrar().addActionListener(this);
@@ -77,15 +77,18 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
                 break;
             }
             case 2: {//cb año
-
+                borrarTabla();
+                llenarTabla(libros.stream().filter(l -> l.getAño() == (int) vll.getJcbAño().getSelectedItem()).collect(Collectors.toList()));
                 break;
             }
             case 3: {//cb editorial
-
+                borrarTabla();
+                llenarTabla(libros.stream().filter(l -> l.getEditorial().equals(vll.getJcbEditorial().getSelectedItem())).collect(Collectors.toList()));
                 break;
             }
             case 4: {//cb tipo
-
+                borrarTabla();
+                llenarTabla(libros.stream().filter(l -> l.getTipo().equals(vll.getJcbTipo().getSelectedItem())).collect(Collectors.toList()));
                 break;
             }
             case 5: {
@@ -134,13 +137,19 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
                 vll.getJcbEditorial().setEnabled(false);
                 vll.getJcbTipo().setEnabled(false);
                 vll.getJtfNombre().setEnabled(true);
+                borrarTabla();
+                llenarTabla(ld.obtenerLibrosXTitulo(vll.getJtfNombre().getText()));
                 break;
             }
             case 10: {
                 if (gsr() != -1 && gsc() != -1) {
-                    if ((int)vfa(6) == 0) {
+                    if ((int) vfa(6) == 0) {
+                        Libro l = new Libro();
+                        l.setIsbn((int)vfa(0));
+                        libros.remove(l);
                         ld.eliminarLibro((int) vfa(0));
                         tabla.removeRow(gsr());
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "No se puede eliminar un libro con ejemplares registrados.");
                     }
@@ -154,23 +163,22 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
             }
         }
     }
-    
+
     @Override
     public void tableChanged(TableModelEvent tme) {
-        if(gsr()!=-1 && gsc()!=-1 && tme.getType()!=-1){
-            Libro l = ld.buscarLibro((int)vfa(0));
+        if (gsr() != -1 && gsc() != -1 && tme.getType() != -1) {
+            Libro l = ld.buscarLibro((int) vfa(0));
             l.setNombre(vfa(2).toString());
             l.setEditorial(vfa(3).toString());
-            l.setAño((int)vfa(4));
+            l.setAño((int) vfa(4));
             l.setTipo(vfa(5).toString());
             ld.actualizarLibro(l);
         }
     }
 
-
     private void llenarTabla() {
         for (Libro l : libros) {
-            tabla.addRow(new Object[]{l.getIsbn(), l.getAutor().toString(), l.getNombre(), l.getEditorial(), l.getAño(), l.getTipo(),ed.cantEjemplares(l)});
+            tabla.addRow(new Object[]{l.getIsbn(), l.getAutor().toString(), l.getNombre(), l.getEditorial(), l.getAño(), l.getTipo(), ed.cantEjemplares(l)});
         }
     }
 
@@ -210,7 +218,7 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
         for (String s : editoriales) {
             vll.getJcbEditorial().addItem(s);
         }
-        
+
     }
 
     //valor fila actual
@@ -228,5 +236,4 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
         return vll.getJtListado().getSelectedColumn();
     }
 
-    
 }

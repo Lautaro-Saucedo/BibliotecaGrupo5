@@ -74,6 +74,29 @@ public class Libro {
     public String toString() {
         return nombre;
     }
+
+    @Override
+    public int hashCode() {
+        return isbn;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Libro other = (Libro) obj;
+        if (this.isbn != other.isbn) {
+            return false;
+        }
+        return true;
+    }
     
     
     

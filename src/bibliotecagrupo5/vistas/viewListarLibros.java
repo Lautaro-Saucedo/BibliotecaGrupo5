@@ -57,6 +57,7 @@ public class viewListarLibros extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jrbNombre);
         jrbNombre.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jrbNombre.setSelected(true);
         jrbNombre.setText("Título");
 
         jtfNombre.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -89,6 +90,7 @@ public class viewListarLibros extends javax.swing.JInternalFrame {
         });
 
         jcbEditorial.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbEditorial.setEnabled(false);
 
         jtLibros.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jtLibros.setModel(new javax.swing.table.DefaultTableModel(
@@ -122,6 +124,7 @@ public class viewListarLibros extends javax.swing.JInternalFrame {
         jlTitulo.setText("Libros");
 
         jcbTipo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbTipo.setEnabled(false);
 
         buttonGroup1.add(jrbTipo);
         jrbTipo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -140,8 +143,10 @@ public class viewListarLibros extends javax.swing.JInternalFrame {
         jbBorrar.setText("Borrar");
 
         jcbAutor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbAutor.setEnabled(false);
 
         jcbAño.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jcbAño.setEnabled(false);
 
         jbBuscar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jbBuscar.setText("Buscar");

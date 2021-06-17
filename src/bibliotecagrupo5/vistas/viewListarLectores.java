@@ -36,6 +36,8 @@ public class viewListarLectores extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbCambiarEstado = new javax.swing.JButton();
 
+        setClosable(true);
+
         jtLectores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
