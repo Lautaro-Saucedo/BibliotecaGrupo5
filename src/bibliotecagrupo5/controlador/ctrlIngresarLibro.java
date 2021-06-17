@@ -5,12 +5,16 @@ import bibliotecagrupo5.modelo.Libro;
 import bibliotecagrupo5.vistas.viewIngresarLibro;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 /* @author @LXWeber Leandro Xavier Weber */
-public class ctrlIngresarLibro implements ActionListener {
+public class ctrlIngresarLibro implements ActionListener, KeyListener {
 
     private viewIngresarLibro vil;
     private LibroData ld;
@@ -25,7 +29,12 @@ public class ctrlIngresarLibro implements ActionListener {
         vil.getJbIngresar().addActionListener(this);
         vil.getJbLimpiar().addActionListener(this);
         vil.getJbAgregarTipo().addActionListener(this);
-
+        
+        JSpinner spin = (JSpinner) vil.getJycAño().getSpinner();
+        ((JTextField) spin.getEditor()).addKeyListener(this);
+        vil.getJycAño().setEndYear(2021);
+        vil.getJycAño().setStartYear(1500);
+        
         fuente.put(vil.getJbIngresar(), 1);
         fuente.put(vil.getJbLimpiar(), 2);
         fuente.put(vil.getJbAgregarTipo(), 3);
@@ -97,5 +106,20 @@ public class ctrlIngresarLibro implements ActionListener {
         for (String s : tipos) {
             vil.getJcbTipo().addItem(s);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        if (!(Character.isDigit(ke.getKeyChar()))){
+            ke.consume();
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
     }
 }
