@@ -36,6 +36,7 @@ public class ctrlListarLectores implements ActionListener, TableModelListener {
         vll.getJbCambiarEstado().addActionListener(this);
         tabla.addTableModelListener(this);
 
+        vll.getJtLectores().setAutoCreateRowSorter(true);
         llenarTabla();
 
     }

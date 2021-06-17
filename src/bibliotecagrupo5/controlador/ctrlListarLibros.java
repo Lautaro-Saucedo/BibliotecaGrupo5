@@ -5,7 +5,6 @@ import bibliotecagrupo5.modelo.Libro;
 import bibliotecagrupo5.vistas.viewListarLibros;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -63,6 +62,7 @@ public class ctrlListarLibros implements ActionListener, TableModelListener {
         fuente.put(vll.getJbBuscar(), 11);
 
         libros = ld.listarLibros();
+        vll.getJtListado().setAutoCreateRowSorter(true);
         cargarComboBox();
         llenarTabla();
 

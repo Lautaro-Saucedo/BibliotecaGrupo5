@@ -58,6 +58,7 @@ public class ctrlListarPrestamos implements ActionListener, PropertyChangeListen
             }
         }
         
+        vlp.getJtPrestamos().setAutoCreateRowSorter(true);
         vlp.getJcbListas().setSelectedIndex(2);
         vlp.getJrbEstado().setSelected(true);
     }
